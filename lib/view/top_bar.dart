@@ -32,8 +32,8 @@ class TopBar extends StatelessWidget {
                     // final store = context.read(selectedStoreProvider).state;
                     // final store = StoreModel.initial();
 
-                    final products =
-                        context.read(productsBySectionProvider('')).state;
+                    // final products =
+                    //     context.read(productsBySectionProvider('')).state;
 
                     // final objects = context.read(objRepositoryProvider).state;
 

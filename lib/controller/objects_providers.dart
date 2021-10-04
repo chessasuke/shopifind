@@ -3,6 +3,8 @@ import 'package:shopifind/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'store_providers.dart';
+
 /// provides id of selected canvas object
 final selectedObjectIdProvider = StateProvider((ref) => '');
 
@@ -20,7 +22,7 @@ final selectedObjectProvider = StateProvider((ref) {
   }
 });
 
-// /// provides all canvas objects
+/// provides all canvas objects
 final objRepositoryProvider = StateProvider((ref) {
   final allObjs = ref.watch(objsControllerProvider);
   return allObjs;
@@ -28,18 +30,10 @@ final objRepositoryProvider = StateProvider((ref) {
 
 /// manage/control the objects repository
 final objsControllerProvider = StateNotifierProvider((ref) {
-  // final currentStore = ref.watch(selectedStoreProvider).state;
-  // print('currentStore: $currentStore');
-  // print('currentStore objects type: ${currentStore.objects.runtimeType}');
+  final currentStore = ref.watch(selectedStoreProvider).state;
+  print('currentStore: $currentStore');
 
-  // if (currentStore.objects.isNotEmpty) {
-  //   print('objs NOT empty');
-  //   return CanvObjsNotifier(currentStore.objects);
-  // } else {
-  //       print('objs empty, craeting new CanvObjsNotifier');
-  //   return CanvObjsNotifier();
-  // }
-  return CanvObjsNotifier();
+  return CanvObjsNotifier(currentStore!.objects);
 });
 
 class CanvObjsNotifier extends StateNotifier {
@@ -119,17 +113,23 @@ class CanvObjsNotifier extends StateNotifier {
 
   /// get object position
   Offset getPositionFromId(String id) {
-    return state.firstWhere((CanvObjectModel element) => element.id == id).position;
+    return state
+        .firstWhere((CanvObjectModel element) => element.id == id)
+        .position;
   }
 
   /// get object width
   double getWidthFromId(String id) {
-    return state.firstWhere((CanvObjectModel element) => element.id == id).width;
+    return state
+        .firstWhere((CanvObjectModel element) => element.id == id)
+        .width;
   }
 
   /// get object height
   double getHeightFromId(String id) {
-    return state.firstWhere((CanvObjectModel element) => element.id == id).height;
+    return state
+        .firstWhere((CanvObjectModel element) => element.id == id)
+        .height;
   }
 
   /// update object position

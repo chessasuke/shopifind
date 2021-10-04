@@ -8,16 +8,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../utils.dart';
 
-class Sidebar extends ConsumerWidget {
+class Sidebar extends StatelessWidget {
   const Sidebar({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, watch) {
-    final objController = watch(objsControllerProvider.notifier);
-
-    print(
-        'objController state: ${objController.state} | type: ${objController.state.runtimeType}');
-
+  Widget build(BuildContext context) {
     final screenSize = MediaQuery.of(context).size;
 
     return Container(
@@ -28,9 +23,13 @@ class Sidebar extends ConsumerWidget {
           children: [
             InkWell(
               onTap: () {
-                // context.read(selectedStoreIdProvider).state = '';
-                // context.read(selectedObjectProvider).state = null;
-                // context.read(selectedObjectIdProvider).state = '';
+
+                /// reset state of store editor
+                context.read(selectedStoreIdProvider).state = '';
+                context.read(selectedObjectProvider).state = null;
+                context.read(selectedObjectIdProvider).state = '';
+                context.read(selectedObjectProvider).state = null;
+
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(

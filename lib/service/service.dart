@@ -61,10 +61,10 @@ class AppService {
   //   return committed;
   // }
 
-  // static Future<QuerySnapshot<Map<String, dynamic>>> fetchStores() async {
-  //   final query = await FirebaseFirestore.instance.collection('stores').get();
-  //   return query;
-  // }
+  static Future<QuerySnapshot<Map<String, dynamic>>> fetchStores() async {
+    final query = await FirebaseFirestore.instance.collection('stores').get();
+    return query;
+  }
 
   // static Future<StoreModel> createStore() async {
   //   String statusMsg = '';

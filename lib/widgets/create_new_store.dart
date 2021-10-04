@@ -1,7 +1,6 @@
 import 'package:shopifind/controller/store_providers.dart';
 import 'package:shopifind/model/store_model.dart';
 import 'package:shopifind/screens/store_editor.dart';
-import 'package:shopifind/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -14,15 +13,15 @@ class CreateNewStore extends StatelessWidget {
       padding: const EdgeInsets.all(50.0),
       child: InkWell(
         onTap: () async {
-          // final StoreModel newStore = await AppService.createStore();
-          // context
-          //     .read(storesControllerProvider.notifier)
-          //     .add(StoreModel.initialWithId(id: storeId));
-          // context.read(selectedStoreProvider).state = newStore;
+          final StoreModel newStore = StoreModel.initial();
+          context
+              .read(storesControllerProvider.notifier)
+              .add(newStore);
+          context.read(selectedStoreIdProvider).state = newStore.id;
 
           // print('newStore: $newStore');
           // if (!newStore.id.startsWith('error')) {
-            // context.read(selectedStoreIdProvider).state = storeId;
+          //   context.read(selectedStoreIdProvider).state = storeId;
 
             Navigator.push<void>(
               context,
