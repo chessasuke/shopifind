@@ -29,32 +29,32 @@ class TopBar extends StatelessWidget {
                   onPressed: () async {
                     print('save products to server');
 
-                    // final store = context.read(selectedStoreProvider).state;
-                    // final store = StoreModel.initial();
+                    final store = context.read(selectedStoreProvider).state;
 
                     final products =
                         context.read(productsBySectionProvider('')).state;
 
-                    // final objects = context.read(objRepositoryProvider).state;
+                    final objects = context.read(objRepositoryProvider).state;
 
-                    // final statusMsg = await AppService.uploadToSever(
-                    //     store, products, objects);
-                    // showDialog(
-                    //     context: context,
-                    //     builder: (context) {
-                    //       return AlertDialog(
-                    //         title: Text(
-                    //           statusMsg == 'ok' ? 'Data Published!' : 'Error',
-                    //           style: statusMsg == 'ok'
-                    //               ? Theme.of(context).textTheme.bodyText1
-                    //               : Theme.of(context)
-                    //                   .textTheme
-                    //                   .bodyText1!
-                    //                   .copyWith(color: Colors.red),
-                    //         ),
-                    //         content: statusMsg != 'ok' ? Text(statusMsg) : null,
-                    //       );
-                    //     });
+                    final statusMsg = await AppService.uploadToSever(
+                        store, products, objects);
+                        
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: Text(
+                              statusMsg == 'ok' ? 'Data Published!' : 'Error',
+                              style: statusMsg == 'ok'
+                                  ? Theme.of(context).textTheme.bodyText1
+                                  : Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(color: Colors.red),
+                            ),
+                            content: statusMsg != 'ok' ? Text(statusMsg) : null,
+                          );
+                        });
                   },
                   icon: const Icon(Icons.cloud_upload_rounded)),
             ),
