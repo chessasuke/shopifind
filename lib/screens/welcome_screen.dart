@@ -47,33 +47,33 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 ),
               )),
               const CreateNewStore(),
-              Consumer(builder: (context, watch, child) {
-                final query = watch(storeFetcherProvider);
+              // Consumer(builder: (context, watch, child) {
+              //   final query = watch(storeFetcherProvider);
 
-                return query.when(
-                  data: (stores) {
-                    print('stores is empty? ${stores.isEmpty}');
-                    if (stores.isNotEmpty) {
-                      return Column(
-                        children: [
-                          for (final store in stores)
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [StoreCard(store: store)],
-                            ),
-                        ],
-                      );
-                    } else {
-                      return SizedBox.fromSize(size: Size.zero);
-                    }
-                  },
-                  loading: () => const SizedBox(
-                      height: 100,
-                      width: 100,
-                      child: CircularProgressIndicator()),
-                  error: (error, _) => Center(child: Text(error.toString())),
-                );
-              })
+              //   return query.when(
+              //     data: (stores) {
+              //       print('stores is empty? ${stores.isEmpty}');
+              //       if (stores.isNotEmpty) {
+              //         return Column(
+              //           children: [
+              //             for (final store in stores)
+              //               Row(
+              //                 mainAxisAlignment: MainAxisAlignment.center,
+              //                 children: [StoreCard(store: store)],
+              //               ),
+              //           ],
+              //         );
+              //       } else {
+              //         return SizedBox.fromSize(size: Size.zero);
+              //       }
+              //     },
+              //     loading: () => const SizedBox(
+              //         height: 100,
+              //         width: 100,
+              //         child: CircularProgressIndicator()),
+              //     error: (error, _) => Center(child: Text(error.toString())),
+              //   );
+              // })
             ],
           ),
         ));

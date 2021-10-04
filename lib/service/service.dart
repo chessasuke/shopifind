@@ -42,24 +42,24 @@ class AppService {
     return contents;
   }
 
-  // static Future<String> uploadToSever(StoreModel store,
-  //     List<ProductModel> products, List<CanvObjectModel> objects) async {
-  //   String committed = 'ok';
-  //   WriteBatch batch = FirebaseFirestore.instance.batch();
-  //   store = store.copyWith(products: products, objects: objects);
-  //   try {
-  //     /// upload store info to the cloud, values not referenced remain untouched
-  //     batch.set(FirebaseFirestore.instance.collection('stores').doc(store.id),
-  //         store.toJson(), SetOptions(merge: true));
+  static Future<String> uploadToSever(StoreModel store,
+      List<ProductModel> products, List<CanvObjectModel> objects) async {
+    String committed = 'ok';
+    WriteBatch batch = FirebaseFirestore.instance.batch();
+    store = store.copyWith(products: products, objects: objects);
+    try {
+      /// upload store info to the cloud, values not referenced remain untouched
+      batch.set(FirebaseFirestore.instance.collection('stores').doc(store.id),
+          store.toJson(), SetOptions(merge: true));
 
-  //     /// commit/upload to firestore
-  //     await batch.commit();
-  //   } catch (e) {
-  //     committed = e.toString();
-  //     print('[service upload product error] $e');
-  //   }
-  //   return committed;
-  // }
+      /// commit/upload to firestore
+      await batch.commit();
+    } catch (e) {
+      committed = e.toString();
+      print('[service upload product error] $e');
+    }
+    return committed;
+  }
 
   static Future<QuerySnapshot<Map<String, dynamic>>> fetchStores() async {
     final query = await FirebaseFirestore.instance.collection('stores').get();
