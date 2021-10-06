@@ -29,7 +29,6 @@ class CanvObjectModel extends Equatable {
   final Color backgroundColor;
   final Color borderColor;
   final double cornerRadius;
-  // final Widget? child;
 
   factory CanvObjectModel.initial() => CanvObjectModel(
         height: 100,
@@ -45,23 +44,27 @@ class CanvObjectModel extends Equatable {
       );
 
   factory CanvObjectModel.fromJson(Map<String, dynamic> json) {
-    final double dx = json['dx'];
-    final double dy = json['dy'];
-    final ObjectType objTypeFromString = Utils.stringToObjType(json['objType']);
-    final int backgroundColor = json['backgroundColor'];
-    final int borderColor = json['borderColor'];
 
-    return CanvObjectModel(
-      id: json['id'],
-      name: json['name'],
-      width: json['width'],
-      height: json['height'],
-      objType: objTypeFromString,
-      cornerRadius: json['cornerRadius'],
-      backgroundColor: Color(backgroundColor),
-      borderColor: Color(borderColor),
-      position: Offset(dx, dy),
-    );
+      // print(
+      //     "id: ${json['id']} |types: json['dx']: ${json['dx'].runtimeType} | json['dy']: ${json['dy'].runtimeType} | json['backgroundColor']: ${json['backgroundColor'].runtimeType} | json['borderColor']: ${json['borderColor'].runtimeType}  |  json['objType']: ${json['objType'].runtimeType}");
+
+      final double dx = json['dx'] as double;
+      final double dy = json['dy'] as double;
+      final ObjectType objTypeFromString =
+          Utils.stringToObjType(json['objType'] as String);
+      final int backgroundColor = json['backgroundColor'] as int;
+      final int borderColor = json['borderColor'] as int;
+
+      return CanvObjectModel(
+        id: json['id'] as String,
+        name: json['name'] as String,
+        width: json['width'] as double,
+        height: json['height'] as double,
+        objType: objTypeFromString,
+        cornerRadius: json['cornerRadius'] as double,
+        backgroundColor: Color(backgroundColor),
+        borderColor: Color(borderColor),
+        position: Offset(dx, dy));
   }
 
   Map<String, dynamic> toJson() {
@@ -104,7 +107,6 @@ class CanvObjectModel extends Equatable {
       position: position ?? this.position,
       width: width ?? this.width,
       height: height ?? this.height,
-      // child: child ?? this.child,
       objType: objType ?? this.objType,
       isSelected: isSelected ?? this.isSelected,
       name: name ?? this.name,

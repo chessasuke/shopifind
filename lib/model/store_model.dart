@@ -34,8 +34,6 @@ class StoreModel extends Equatable {
       );
 
   factory StoreModel.fromJson(Map<String, dynamic> json) {
-    print('getting product from json');
-
     final objectsFetched = json['objects'];
     final List<CanvObjectModel> objects = [];
 
@@ -43,26 +41,22 @@ class StoreModel extends Equatable {
     final List<ProductModel> products = [];
 
     for (final obj in objectsFetched) {
-      // print('obj: $obj | ${obj.runtimeType}');
-      objects.add(CanvObjectModel.fromJson(obj));
+      final CanvObjectModel newObj = CanvObjectModel.fromJson(obj);
+      objects.add(newObj);
     }
-
-
 
     for (final product in productsFetched) {
       // print('product: $product | ${product.runtimeType}');
       products.add(ProductModel.fromJson(product));
     }
 
-
     return StoreModel(
-        id: json['id'] as String,
-        description: json['description'] as String,
-        products: products as List<ProductModel>,
-        objects: objects as List<CanvObjectModel>,
-        isPublished: json['isPublished'] as bool,
-        
-        );
+      id: json['id'] as String,
+      description: json['description'] as String,
+      products: products,
+      objects: objects,
+      isPublished: json['isPublished'] as bool,
+    );
   }
 
   Map<String, dynamic> toJson() {

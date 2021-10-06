@@ -46,7 +46,7 @@ class Utils {
   }
 
   static Widget buildCanvObjChild(
-      CanvObjectModel object, BuildContext context) {
+      CanvObjectModel object) {
     switch (object.objType) {
       case ObjectType.restroom:
         return SizedBox(

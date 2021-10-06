@@ -1,7 +1,9 @@
+import 'package:shopifind/controller/store_providers.dart';
 import 'package:shopifind/model/product_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final productsBySectionProvider = StateProvider.family<List<ProductModel>, String>((ref, String? section) {
+final productsBySectionProvider =
+    StateProvider.family<List<ProductModel>, String>((ref, String? section) {
   final List<ProductModel> allProducts =
       ref.watch(productsControllerProvider) as List<ProductModel>;
 
@@ -15,7 +17,16 @@ final productsBySectionProvider = StateProvider.family<List<ProductModel>, Strin
   }
 });
 
-final productsControllerProvider = StateNotifierProvider((ref) => ProductsController());
+final productsControllerProvider = StateNotifierProvider((ref) {
+  final currentStore = ref.watch(selectedStoreProvider).state;
+  if (currentStore != null) {
+    print(
+        'products length in ${currentStore.id} store: ${currentStore.products.length}');
+    return ProductsController(currentStore.products);
+  } else {
+    return ProductsController();
+  }
+});
 
 class ProductsController extends StateNotifier<List<ProductModel>> {
   ProductsController([List<ProductModel>? products]) : super(products ?? []);
@@ -25,7 +36,6 @@ class ProductsController extends StateNotifier<List<ProductModel>> {
       ...state,
       newProduct,
     ];
-    print('product added');
   }
 
   void addList(List<ProductModel> newProducts) {
@@ -61,5 +71,9 @@ class ProductsController extends StateNotifier<List<ProductModel>> {
 
   void remove(String id) {
     state = state.where((todo) => todo.id != id).toList();
+  }
+
+  void clear() {
+    state = [];
   }
 }

@@ -15,7 +15,6 @@ class StoreCard extends StatelessWidget {
       padding: const EdgeInsets.all(50.0),
       child: InkWell(
         onTap: () async {
-          print('storeId: ${store.id}');
           context.read(selectedStoreIdProvider).state = store.id;
 
           Navigator.push<void>(

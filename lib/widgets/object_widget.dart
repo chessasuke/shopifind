@@ -49,7 +49,7 @@ class ObjectWidget extends StatelessWidget {
                         context.read(objsControllerProvider.notifier).selectObj(object.id);
                   }
                 },
-                child: Utils.buildCanvObjChild(object, context),
+                child: Utils.buildCanvObjChild(object),
               ),
             ),
           ),

@@ -6,20 +6,18 @@ import 'package:flutter/material.dart';
 import '../view/side_bar.dart';
 import '../view/custom_canva.dart';
 
-class StoreEditor extends ConsumerWidget {
+class StoreEditor extends StatelessWidget {
   const StoreEditor({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, watch) {
-    final storeId = watch(selectedStoreIdProvider).state;
-    final selectedStore = watch(selectedStoreProvider).state;
+  Widget build(BuildContext context) {
+    // final storeId = watch(selectedStoreIdProvider).state;
+    // final selectedStore = watch(selectedStoreProvider).state;
 
-    print('selected store id: $storeId');
-    if(selectedStore != null)
-    print('selected store id from itself: ${selectedStore.id}');
-    else     print('selected store is null');
-
-
+    // print('selected store id: $storeId');
+    // if(selectedStore != null)
+    // print('selected store id from itself: ${selectedStore.id}');
+    // else     print('selected store is null');
 
     final screenSize = MediaQuery.of(context).size;
     return Scaffold(

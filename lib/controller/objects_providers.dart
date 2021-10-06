@@ -14,7 +14,6 @@ final selectedObjectProvider = StateProvider((ref) {
   if (selectedObjId != '') {
     CanvObjectModel? object =
         ref.watch(objsControllerProvider.notifier).selectObj(selectedObjId);
-    print('object : ${object!.id} selected');
     return object;
   } else {
     print('no object selected');
@@ -31,7 +30,7 @@ final objRepositoryProvider = StateProvider((ref) {
 /// manage/control the objects repository
 final objsControllerProvider = StateNotifierProvider((ref) {
   final currentStore = ref.watch(selectedStoreProvider).state;
-  print('currentStore: $currentStore');
+  // print('currentStore: $currentStore');
 
   return CanvObjsNotifier(currentStore!.objects);
 });
@@ -79,8 +78,6 @@ class CanvObjsNotifier extends StateNotifier {
   }
 
   void addObject(CanvObjectModel newObj) {
-    print('newObj to add: $newObj');
-
     /// if new object is store dimension put it at the
     /// bottom of the stack so it doesnt interfiere with
     /// the rest of the objects
@@ -89,8 +86,6 @@ class CanvObjsNotifier extends StateNotifier {
     } else {
       state = [...state, newObj];
     }
-    print('state length: ${state.length}');
-    print('object added');
   }
 
   /// remove object from canvas
@@ -244,5 +239,9 @@ class CanvObjsNotifier extends StateNotifier {
       for (final CanvObjectModel obj in state)
         if (obj.id == id) updatedObj else obj,
     ];
+  }
+
+    void clear() {
+    state = [];
   }
 }

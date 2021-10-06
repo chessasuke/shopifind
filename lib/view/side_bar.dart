@@ -1,4 +1,5 @@
 import 'package:shopifind/controller/objects_providers.dart';
+import 'package:shopifind/controller/product_providers.dart';
 import 'package:shopifind/controller/store_providers.dart';
 import 'package:shopifind/model/canv_object_model.dart';
 import 'package:shopifind/screens/welcome_screen.dart';
@@ -22,19 +23,85 @@ class Sidebar extends StatelessWidget {
         child: Column(
           children: [
             InkWell(
-              onTap: () {
+              onTap: () async {
+                bool? leave = false;
+                leave = await showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: const Text('Are you sure you want to leave?'),
+                        content: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Text('Any change not saved will be lost'),
+                            const SizedBox(height: 50),
+                            Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, true),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onBackground),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text('Leave',
+                                            style: Theme.of(context)
+                                                .primaryTextTheme
+                                                .bodyText1),
+                                      ),
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, false),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          border: Border.all(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .onBackground),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(10))),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text('Return',
+                                            style: Theme.of(context)
+                                                .primaryTextTheme
+                                                .bodyText1),
+                                      ),
+                                    ),
+                                  )
+                                ])
+                          ],
+                        ),
+                      );
+                    });
 
-                /// reset state of store editor
-                context.read(selectedStoreIdProvider).state = '';
-                context.read(selectedObjectProvider).state = null;
-                context.read(selectedObjectIdProvider).state = '';
-                context.read(selectedObjectProvider).state = null;
-
-                Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const WelcomeScreen()),
-                    (route) => false);
+                if (leave != null) {
+                  if (leave) {
+                    /// reset state of store editor
+                    context.read(productsControllerProvider.notifier).clear();
+                    context.read(objsControllerProvider.notifier).clear();
+                    context.read(selectedStoreIdProvider).state = '';
+                    context.read(selectedObjectProvider).state = null;
+                    context.read(selectedObjectIdProvider).state = '';
+                    context.read(selectedObjectProvider).state = null;
+                    context.refresh(storeFetcherProvider);
+                    Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const WelcomeScreen()),
+                        (route) => false);
+                  }
+                }
               },
               child: SizedBox(
                   width: 150,

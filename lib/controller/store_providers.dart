@@ -23,20 +23,13 @@ final selectedStoreProvider = StateProvider((ref) {
 });
 
 /// fetch stores from firestore (only the new docs unless is the first fetching)
-final storeFetcherProvider = FutureProvider((ref) async {
+final storeFetcherProvider = FutureProvider.autoDispose((ref) async {
   final query = await AppService.fetchStores();
   final List<StoreModel> stores = [];
-  for (final DocumentChange<Map<String, dynamic>> storeFetched
-      in query.docChanges) {
-    if (storeFetched.doc.data() != null) {
-      print('store to add before: ${storeFetched.doc.data()}');
-      print('--------------------------------------------------------');
-      print('--------------------------------------------------------');
-
-      final store = StoreModel.fromJson(storeFetched.doc.data()!);
-      print('store to add after: $store');
+  for (final QueryDocumentSnapshot<Map<String, dynamic>> storeFetched
+      in query.docs) {
+      final store = StoreModel.fromJson(storeFetched.data());
       stores.add(store);
-    }
   }
 
   print('stores length: ${stores.length}');
@@ -111,7 +104,8 @@ class StoreController extends StateNotifier<List<StoreModel>> {
     }
   }
 
-  void remove(String id) {
+  void removeStore(String id) {
     state = state.where((todo) => todo.id != id).toList();
   }
+
 }
