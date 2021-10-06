@@ -37,45 +37,47 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             Theme.of(context).colorScheme.primaryVariant.withOpacity(0.98),
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
-
       body: FutureBuilder(
         future: AppService.fetchStores(),
         builder: (context, snapshot) {
-          List<Widget> children;
           if (snapshot.hasData) {
-            children = [Consumer(builder: (context, watch, child) {
-              return 
-                    SingleChildScrollView(
-        child: Consumer(builder: (context, watch, child) {
-          final query = watch(storeFetcherProvider);
+            return Consumer(builder: (context, watch, child) {
+              return Consumer(builder: (context, watch, child) {
+                final query = watch(storeFetcherProvider);
 
-          return query.when(
-            data: (stores) {
-              return Column(
-                children: [
-                  Center(
-                      child: Padding(
-                    padding: const EdgeInsets.all(100.0),
-                    child: Text(
-                      'ShopiFind',
-                      style: Theme.of(context).textTheme.headline2,
-                    ),
-                  )),
-                  buildStoresList(
-                      stores: stores, screenWidth: screenSize.width)
-                ],
-              );
-            },
-            loading: () => const SizedBox(
-                height: 100, width: 100, child: CircularProgressIndicator()),
-            error: (error, _) =>
-                Center(child: Text('${error.toString()} | ${_.toString()}')),
-          );
-        }),
-      );
-            })];
+                return query.when(
+                  data: (stores) {
+                    return SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Center(
+                              child: Padding(
+                            padding: const EdgeInsets.all(100.0),
+                            child: Text(
+                              'ShopiFind',
+                              style: Theme.of(context).textTheme.headline2,
+                            ),
+                          )),
+                          buildStoresList(
+                              stores: stores, screenWidth: screenSize.width)
+                        ],
+                      ),
+                    );
+                  },
+                  loading: () => const Center(
+                    child: SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: CircularProgressIndicator()),
+                  ),
+                  error: (error, _) => Center(
+                      child: Text('${error.toString()} | ${_.toString()}')),
+                );
+              });
+            });
           } else if (snapshot.hasError) {
-            children = <Widget>[
+            return Column(children: [
               const Icon(
                 Icons.error_outline,
                 color: Colors.red,
@@ -85,27 +87,26 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 padding: const EdgeInsets.only(top: 16),
                 child: Text('Error: ${snapshot.error}'),
               )
-            ];
+            ]);
           } else {
-            children = const <Widget>[
-              SizedBox(
-                child: CircularProgressIndicator(),
-                width: 60,
-                height: 60,
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const [
+                  SizedBox(
+                    child: CircularProgressIndicator(),
+                    width: 60,
+                    height: 60,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 16),
+                    child: Text('Awaiting result...'),
+                  )
+                ],
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 16),
-                child: Text('Awaiting result...'),
-              )
-            ];
+            );
           }
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: children,
-            ),
-          );
         },
       ),
     );

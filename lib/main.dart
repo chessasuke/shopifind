@@ -21,7 +21,6 @@ class MyApp extends StatelessWidget {
     return Consumer(builder: (context, watch, child) {
       final appTheme = watch(appThemeProvider);
       return MaterialApp(
-        title: 'Flutter Demo',
         theme: appTheme.getTheme(),
         home: const WelcomeScreen(),
       );
