@@ -46,7 +46,7 @@ class Utils {
   }
 
   static Widget buildCanvObjChild(
-      CanvObjectModel object, BuildContext context) {
+      CanvObjectModel object) {
     switch (object.objType) {
       case ObjectType.restroom:
         return SizedBox(
@@ -108,6 +108,8 @@ class Utils {
         );
 
       case ObjectType.store:
+          print(
+            'store dimensoins: ${object.width} | ${object.width}');
         return Container(
           decoration: BoxDecoration(
             color: object.backgroundColor,
@@ -117,7 +119,6 @@ class Utils {
               width: 1,
               color: object.borderColor,
             ),
-            // color: const Color(0xFFDBD0C0),
           ),
           width: object.width,
           height: object.height,

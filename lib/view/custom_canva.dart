@@ -10,7 +10,6 @@ class CustomCanvas extends ConsumerWidget {
   @override
   Widget build(BuildContext context, watch) {
     final objects = watch(objRepositoryProvider).state;
-    // final objects = watch(objsControllerProvider);
 
     return Stack(
       children: [

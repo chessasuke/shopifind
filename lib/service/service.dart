@@ -8,7 +8,6 @@ import 'package:file_picker/file_picker.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:universal_platform/universal_platform.dart';
-import 'package:uuid/uuid.dart';
 
 class AppService {
   static Future<String?>? pickFileDesktop() async {
@@ -42,41 +41,53 @@ class AppService {
     return contents;
   }
 
-  // static Future<String> uploadToSever(StoreModel store,
-  //     List<ProductModel> products, List<CanvObjectModel> objects) async {
-  //   String committed = 'ok';
-  //   WriteBatch batch = FirebaseFirestore.instance.batch();
-  //   store = store.copyWith(products: products, objects: objects);
-  //   try {
-  //     /// upload store info to the cloud, values not referenced remain untouched
-  //     batch.set(FirebaseFirestore.instance.collection('stores').doc(store.id),
-  //         store.toJson(), SetOptions(merge: true));
+  static Future<String> uploadToSever(StoreModel store,
+      List<ProductModel> products, List<CanvObjectModel> objects) async {
+    String committed = 'ok';
+    WriteBatch batch = FirebaseFirestore.instance.batch();
+    store = store.copyWith(products: products, objects: objects);
+    try {
+      /// upload store info to the cloud, values not referenced remain untouched
+      batch.set(FirebaseFirestore.instance.collection('stores').doc(store.id),
+          store.toJson(), SetOptions(merge: true));
 
-  //     /// commit/upload to firestore
-  //     await batch.commit();
-  //   } catch (e) {
-  //     committed = e.toString();
-  //     print('[service upload product error] $e');
-  //   }
-  //   return committed;
-  // }
+      /// commit/upload to firestore
+      await batch.commit();
+      print('data committed');
+    } catch (e) {
+      committed = e.toString();
+      print('[service upload product error] $e');
+    }
+    return committed;
+  }
 
-  // static Future<QuerySnapshot<Map<String, dynamic>>> fetchStores() async {
-  //   final query = await FirebaseFirestore.instance.collection('stores').get();
-  //   return query;
-  // }
+  static Future<QuerySnapshot<Map<String, dynamic>>> fetchStores() async {
+    final query = await FirebaseFirestore.instance.collection('stores').get();
+    return query;
+  }
 
-  // static Future<StoreModel> createStore() async {
-  //   String statusMsg = '';
+  static Future<String> updateStoreDescription(
+      String id, String newDescription) async {
+    String statusMsg = 'ok';
 
-  //   final newStore = StoreModel.initial();
-  //   try {
-  //     statusMsg = newStore.id;
-  //   } catch (e) {
-  //     print('[create store error]: $e');
-  //     statusMsg = 'error' + e.toString();
-  //   }
-  //   print('statusMsg in createStore: $statusMsg');
-  //   return newStore;
-  // }
+    try {
+      await FirebaseFirestore.instance.collection('stores').doc(id).update({'description': newDescription});
+    } catch (e) {
+      print('error deleting store: $e');
+      statusMsg = e.toString();
+    }
+    return statusMsg;
+  }
+
+  static Future<String> deleteStore(String id) async {
+    String statusMsg = 'ok';
+
+    try {
+      await FirebaseFirestore.instance.collection('stores').doc(id).delete();
+    } catch (e) {
+      print('error deleting store: $e');
+      statusMsg = e.toString();
+    }
+    return statusMsg;
+  }
 }

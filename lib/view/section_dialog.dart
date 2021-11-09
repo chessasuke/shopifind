@@ -1,6 +1,6 @@
 import 'package:shopifind/controller/product_providers.dart';
 import 'package:shopifind/model/canv_object_model.dart';
-import 'package:shopifind/widgets/buttons.dart';
+import 'package:shopifind/widgets/upload_btn.dart';
 import 'package:shopifind/widgets/section_dialog_widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -56,8 +56,8 @@ class SectionDialog extends StatelessWidget {
               color: Theme.of(context).colorScheme.surface,
             ),
             Consumer(builder: (context, watch, child) {
-              final products =
-                  watch(productsBySectionProvider(obj.id)).state;
+              final products = watch(productsBySectionProvider(obj.id)).state;
+
               if (products.isNotEmpty) {
                 return SizedBox(
                   child: Column(
@@ -71,7 +71,7 @@ class SectionDialog extends StatelessWidget {
                             itemCount: products.length,
                             itemBuilder: (BuildContext context, int index) {
                               return DialogProductRecord(
-                                index: index,
+                                  index: index,
                                   color: index % 2 == 0
                                       ? Theme.of(context).colorScheme.secondary
                                       : Theme.of(context).colorScheme.primary,

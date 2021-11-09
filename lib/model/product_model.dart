@@ -13,10 +13,10 @@ class ProductModel extends Equatable {
   final String sectionId;
 
   ProductModel.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        description = json['description'],
-        sectionId = json['sectionId'],
-        price = json['price'];
+      : id = json['id'] as String,
+        description = json['description'] as String,
+        sectionId = json['sectionId'] as String,
+        price = json['price'] as double;
 
   Map<String, dynamic> toJson() => {
         'id': id,
