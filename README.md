@@ -1,4 +1,4 @@
-# canvas_testing
+# shopifind
 
 A new Flutter project.
 
