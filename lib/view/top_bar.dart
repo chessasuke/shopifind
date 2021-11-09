@@ -2,11 +2,12 @@ import 'package:shopifind/controller/objects_providers.dart';
 import 'package:shopifind/controller/product_providers.dart';
 import 'package:shopifind/controller/store_providers.dart';
 import 'package:shopifind/model/store_model.dart';
+import 'package:shopifind/preview/preview.dart';
 import 'package:shopifind/service/service.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shopifind/view/preview.dart';
+import 'package:shopifind/preview/preview_map.dart';
 import 'package:shopifind/widgets/upload_btn.dart';
 import 'package:shopifind/widgets/manage_store.dart';
 
@@ -77,7 +78,7 @@ class TopBar extends StatelessWidget {
                       onPressed: () {
                         print('preview');
                         showDialog(
-                            context: context, builder: (context) => Preview());
+                            context: context, builder: (context) => const Preview());
                       },
                       icon: const Icon(FontAwesomeIcons.eye)),
                 ),

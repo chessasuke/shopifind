@@ -32,14 +32,14 @@ final storeFetcherProvider = FutureProvider.autoDispose((ref) async {
       stores.add(store);
   }
 
-  print('stores length: ${stores.length}');
+  // print('stores length: ${stores.length}');
 
   /// add all stores to the repository controller
   ref.watch(storesControllerProvider.notifier).addAll(stores);
   return stores;
 });
 
-/// returns all store
+/// returns all store (state of store controller)
 final storeRepositoryProvider =
     StateProvider((ref) => ref.watch(storesControllerProvider));
 

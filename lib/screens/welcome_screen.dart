@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shopifind/model/store_model.dart';
 import 'package:shopifind/service/service.dart';
 
@@ -37,59 +38,30 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
             Theme.of(context).colorScheme.primaryVariant.withOpacity(0.98),
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: FutureBuilder(
-        future: AppService.fetchStores(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Consumer(builder: (context, watch, child) {
-              return Consumer(builder: (context, watch, child) {
-                final query = watch(storeFetcherProvider);
+      body: Consumer(builder: (context, watch, child) {
+              final query = watch(storeFetcherProvider);
 
-                return query.when(
-                  data: (stores) {
-                    return SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Center(
-                              child: Padding(
-                            padding: const EdgeInsets.all(100.0),
-                            child: Text(
-                              'ShopiFind',
-                              style: Theme.of(context).textTheme.headline2,
-                            ),
-                          )),
-                          buildStoresList(
-                              stores: stores, screenWidth: screenSize.width)
-                        ],
-                      ),
-                    );
-                  },
-                  loading: () => const Center(
-                    child: SizedBox(
-                        height: 100,
-                        width: 100,
-                        child: CircularProgressIndicator()),
-                  ),
-                  error: (error, _) => Center(
-                      child: Text('${error.toString()} | ${_.toString()}')),
-                );
-              });
-            });
-          } else if (snapshot.hasError) {
-            return Column(children: [
-              const Icon(
-                Icons.error_outline,
-                color: Colors.red,
-                size: 60,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: Text('Error: ${snapshot.error}'),
-              )
-            ]);
-          } else {
-            return Center(
+              return query.when(
+                data: (stores) {
+                  return SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Center(
+                            child: Padding(
+                          padding: const EdgeInsets.all(100.0),
+                          child: Text(
+                            'ShopiFind',
+                            style: Theme.of(context).textTheme.headline2,
+                          ),
+                        )),
+                        buildStoresList(
+                            stores: stores, screenWidth: screenSize.width)
+                      ],
+                    ),
+                  );
+                },
+                loading: () => Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -105,10 +77,22 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   )
                 ],
               ),
-            );
-          }
-        },
-      ),
+            ),
+                error: (error, _) {
+                  return Column(children: [
+                    const Icon(
+                      Icons.error_outline,
+                      color: Colors.red,
+                      size: 60,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 16),
+                      child: Text('Error: $error'),
+                    )
+                  ]);
+                },
+              );
+            })
     );
   }
 
