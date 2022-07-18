@@ -7,8 +7,9 @@ class DisplayProperties {
   static const double mainBottomPadding = 48.0;
   static const double mainTopPadding = 24.0;
 
- /// Sidebar width
+  /// Sidebar width
   static const double sidebarWidth = 175.0;
-  static const double sidebarTitleHeight = 50.0;
 
+  static const double sidebarTitleHeight = 50.0;
+  static const double sidebarObjectEditorHeight = 250.0;
 }

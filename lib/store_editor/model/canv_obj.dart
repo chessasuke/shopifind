@@ -15,7 +15,7 @@ class CanvObj extends Equatable {
     required this.position,
     required this.width,
     required this.objType,
-    required this.color,
+    required this.fillColor,
     required this.borderColor,
     required this.cornerRadius,
     this.isLocked = false,
@@ -28,7 +28,7 @@ class CanvObj extends Equatable {
   final Position position;
   final ObjectType objType;
   final bool isLocked;
-  final int color;
+  final int fillColor;
   final int borderColor;
   final double cornerRadius;
 
@@ -56,7 +56,7 @@ class CanvObj extends Equatable {
       height: height ?? this.height,
       description: description ?? this.description,
       isLocked: isLocked ?? this.isLocked,
-      color: color ?? this.color,
+      fillColor: color ?? this.fillColor,
       borderColor: borderColor ?? this.borderColor,
       objType: objType ?? this.objType,
       cornerRadius: cornerRadius ?? this.cornerRadius,
@@ -65,19 +65,19 @@ class CanvObj extends Equatable {
 
   factory CanvObj.initial(ObjectType objectType) => CanvObj(
         id: const Uuid().v4(),
-        height: 100,
+        height: 60,
         position: Position.zero(),
-        width: 100,
+        width: 60,
         description: objectType.getTooltipMsg(),
         isLocked: false,
-        color: AppColors.primary100.value,
+        fillColor: AppColors.primary100.value,
         borderColor: AppColors.primary100.value,
         objType: objectType,
         cornerRadius: 0,
       );
 
-  bool get isIconObject =>
-      objType != ObjectType.section || objType != ObjectType.store;
+  bool get isSectionObject =>
+      objType == ObjectType.section || objType == ObjectType.store;
 
   // factory CanvasObject.fromJson(Map<String, dynamic> json) {
   //   // print(

@@ -13,7 +13,7 @@ CanvObj _$CanvObjFromJson(Map<String, dynamic> json) => CanvObj(
       position: Position.fromJson(json['position'] as Map<String, dynamic>),
       width: (json['width'] as num).toDouble(),
       objType: $enumDecode(_$ObjectTypeEnumMap, json['objType']),
-      color: json['color'] as int,
+      fillColor: json['color'] as int,
       borderColor: json['borderColor'] as int,
       cornerRadius: (json['cornerRadius'] as num).toDouble(),
       isLocked: json['isLocked'] as bool? ?? false,
@@ -27,7 +27,7 @@ Map<String, dynamic> _$CanvObjToJson(CanvObj instance) => <String, dynamic>{
       'position': instance.position,
       'objType': _$ObjectTypeEnumMap[instance.objType]!,
       'isLocked': instance.isLocked,
-      'color': instance.color,
+      'color': instance.fillColor,
       'borderColor': instance.borderColor,
       'cornerRadius': instance.cornerRadius,
     };

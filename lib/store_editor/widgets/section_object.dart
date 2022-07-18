@@ -6,13 +6,7 @@ class SectionObject extends StatelessWidget {
   const SectionObject({
     required this.object,
     Key? key,
-  })  : 
-  // assert(
-  //         object.objType == ObjectType.section ||
-  //             object.objType == ObjectType.store,
-  //         'object must be of type ObjectType.section or ObjectType.store',
-  //       ),
-        super(key: key);
+  }) : super(key: key);
 
   final CanvObj object;
 
@@ -39,7 +33,7 @@ class _SectionObjectBorder extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(object.color),
+        color: Color(object.fillColor),
         borderRadius: BorderRadius.all(Radius.circular(object.cornerRadius)),
         border: Border.all(
           width: 1,

@@ -27,6 +27,7 @@ class CanvObjsNotifier extends StateNotifier<CanvasState> {
   CanvObj? get selectedObject => state.selectedObject;
 
   void selectObject(String id) {
+    print('======= select obj with id: $id');
     if (state.selectedObject?.id == id) {
       return;
     }
@@ -43,10 +44,14 @@ class CanvObjsNotifier extends StateNotifier<CanvasState> {
   void addObject(CanvObj newObj) {
     if (newObj.objType == ObjectType.store) {
       state = state.copyWith(
-          objects: [newObj, ...state.objects], selectedObject: newObj,);
+        objects: [newObj, ...state.objects],
+        selectedObject: newObj,
+      );
     } else {
       state = state.copyWith(
-          objects: [...state.objects, newObj], selectedObject: newObj,);
+        objects: [...state.objects, newObj],
+        selectedObject: newObj,
+      );
     }
   }
 
@@ -91,14 +96,19 @@ class CanvObjsNotifier extends StateNotifier<CanvasState> {
   }
 
   void updateObj(CanvObj newObj) {
+    // print('======== updateObj with position dx: ${newObj.position.dx}');
     final udpatedObjects = [
       for (final CanvObj obj in state.objects)
         if (obj.id == newObj.id) newObj else obj,
     ];
+    // print(
+    //     '===== BEFORE: ${state.objects.firstWhere((element) => element.id == newObj.id).position.dx}');
     state = state.copyWith(
       objects: udpatedObjects,
-      selectedObject: selectedObject,
+      selectedObject: newObj,
     );
+    // print(
+    //     '===== AFTER: ${state.objects.firstWhere((element) => element.id == newObj.id).position.dx}');
   }
 
   void clear() {

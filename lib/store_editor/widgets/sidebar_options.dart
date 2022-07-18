@@ -4,19 +4,21 @@ import 'package:shopifind/common/constants/app_colors.dart';
 import 'package:shopifind/store_editor/controller/objects_controller.dart';
 import 'package:shopifind/store_editor/model/canv_obj.dart';
 import 'package:shopifind/store_editor/model/canvas_object_type.dart';
-import 'package:shopifind/store_editor/widgets/object_editor.dart';
+import 'package:shopifind/store_editor/widgets/object_editor/object_editor.dart';
 
 class SidebarOptions extends ConsumerWidget {
   const SidebarOptions({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+        print('rebuild sidebar options');
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         const ObjectEditor(),
-        const SizedBox(height: 20),
+        const SizedBox(height: 16),
         GridView.count(
           shrinkWrap: true,
           crossAxisCount: 2,
@@ -118,6 +120,8 @@ class _SidebarTool extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print('rebuild sidebar Tool');
+
     return GestureDetector(
       onTap: () => _onTap(ref),
       child: Tooltip(

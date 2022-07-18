@@ -22,7 +22,7 @@ class IconObject extends StatelessWidget {
           child: Icon(
             object.objType.getIcon(),
             size: 10,
-            color: Color(object.color),
+            color: Color(object.fillColor),
           ),
         ),
       ),

@@ -18,7 +18,6 @@ class ObjectWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final canvasState = ref.watch(objectsControllerProvider);
     final selectedObject = canvasState.selectedObject;
-
     return Stack(
       children: [
         Positioned(
@@ -55,9 +54,9 @@ class ObjectWidget extends ConsumerWidget {
                     }
                   }
                 },
-                child: object.isIconObject
-                    ? IconObject(object: object)
-                    : SectionObject(object: object),
+                child: object.isSectionObject
+                    ? SectionObject(object: object)
+                    : IconObject(object: object),
               ),
             ),
           ),
@@ -75,8 +74,10 @@ class ObjectWidget extends ConsumerWidget {
                 double newHeight;
                 if (size != null) {
                   newHeight = size.height + details.delta.dy;
-                                  if (newHeight < 30) newHeight = 30;
-                  ref.read(objectsControllerProvider.notifier).updateObj(object.copyWith(height: newHeight));
+                  if (newHeight < 30) newHeight = 30;
+                  ref
+                      .read(objectsControllerProvider.notifier)
+                      .updateObj(object.copyWith(height: newHeight));
                 }
               },
               onHorizontalDragUpdate: (details) {

@@ -11,17 +11,21 @@ class Sidebar extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print('rebuild sidebar');
+
     final screenSize = MediaQuery.of(context).size;
 
     return Container(
       color: AppColors.neutral200,
       width: DisplayProperties.sidebarWidth,
       height: screenSize.height,
-      child: Column(
-        children: const [
-          Flexible(child: _SidebarTitle()),
-          SidebarOptions(),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: const [
+            // Flexible(child: _SidebarTitle()),
+            SidebarOptions(),
+          ],
+        ),
       ),
     );
   }
