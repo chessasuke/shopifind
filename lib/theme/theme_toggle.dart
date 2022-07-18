@@ -1,11 +1,14 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import 'theme.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-class ToggleBrightness extends StatelessWidget {
+class ToggleBrightness extends ConsumerWidget {
+  const ToggleBrightness({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return IconButton(
       icon: Icon(
         Theme.of(context).brightness == Brightness.dark
@@ -19,7 +22,7 @@ class ToggleBrightness extends StatelessWidget {
       highlightColor: Colors.transparent,
       color: Colors.white,
       onPressed: () {
-        context.read(appThemeProvider).toggle();
+        ref.read(appThemeProvider).toggle();
       },
     );
   }
