@@ -76,9 +76,6 @@ class CanvObj extends Equatable {
         cornerRadius: 0,
       );
 
-  bool get isSectionObject =>
-      objType == ObjectType.section || objType == ObjectType.store;
-
   // factory CanvasObject.fromJson(Map<String, dynamic> json) {
   //   // print(
   //   //     "id: ${json['id']} |types: json['dx']: ${json['dx'].runtimeType} | json['dy']: ${json['dy'].runtimeType} | json['backgroundColor']: ${json['backgroundColor'].runtimeType} | json['borderColor']: ${json['borderColor'].runtimeType}  |  json['objType']: ${json['objType'].runtimeType}");

@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:shopifind/common/constants/app_colors.dart';
+
 class DisplayProperties {
   /// AppBar
   static const double kAppBarSize = 68;
@@ -12,4 +15,10 @@ class DisplayProperties {
 
   static const double sidebarTitleHeight = 50.0;
   static const double sidebarObjectEditorHeight = 250.0;
+
+  static final OutlineInputBorder focusedBorder = OutlineInputBorder(
+    gapPadding: 1,
+    borderSide: const BorderSide(color: AppColors.primary100),
+    borderRadius: BorderRadius.circular(8),
+  );
 }

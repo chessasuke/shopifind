@@ -1,33 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopifind/common/constants/app_colors.dart';
+import 'package:shopifind/common/constants/display_properties.dart';
 import 'package:shopifind/store_editor/controller/objects_controller.dart';
 import 'package:shopifind/store_editor/model/canv_obj.dart';
 import 'package:shopifind/store_editor/model/canvas_object_type.dart';
 import 'package:shopifind/store_editor/widgets/object_editor/object_editor.dart';
+import 'package:shopifind/widgets/separator.dart';
 
 class SidebarOptions extends ConsumerWidget {
   const SidebarOptions({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-        print('rebuild sidebar options');
+    print('rebuild sidebar options');
 
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        const ObjectEditor(),
-        const SizedBox(height: 16),
-        GridView.count(
-          shrinkWrap: true,
-          crossAxisCount: 2,
-          children: [
-            for (final item in ObjectType.values)
-              _SidebarTool(objectType: item),
-          ],
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          GridView.count(
+            padding: EdgeInsets.zero,
+            shrinkWrap: true,
+            crossAxisCount: 3,
+            children: [
+              for (final item in ObjectType.values)
+                _SidebarTool(objectType: item),
+            ],
+          ),
+          const Separator(length: DisplayProperties.sidebarWidth),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 4),
+            child: ObjectEditor(),
+          ),
+          const Separator(length: DisplayProperties.sidebarWidth),
+        ],
+      ),
     );
   }
 

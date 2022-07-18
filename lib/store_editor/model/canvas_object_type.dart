@@ -49,4 +49,7 @@ enum ObjectType {
         return 'Store Dimensions';
     }
   }
+
+  bool get isSectionObject =>
+      this == ObjectType.section || this == ObjectType.store;
 }

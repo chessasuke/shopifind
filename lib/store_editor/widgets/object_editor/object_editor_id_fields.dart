@@ -16,10 +16,10 @@ class ObjectEditorIdField extends ConsumerWidget {
     final selectedObjId = ref.watch(
         objectsControllerProvider.select((value) => value.selectedObject?.id));
 
-    return selectedObjId != null
-        ? SizedBox(
-            height: 100,
-            child: Column(
+    return SizedBox(
+      height: 90,
+      child: selectedObjId != null
+          ? Column(
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.min,
@@ -62,12 +62,11 @@ class ObjectEditorIdField extends ConsumerWidget {
                   cursorColor: AppColors.primary100,
                 ),
               ],
-            ),
-          )
-        : const SizedBox();
+            )
+          : null,
+    );
   }
 }
-
 
 class _DeleteOrLockObjectIcons extends ConsumerWidget {
   const _DeleteOrLockObjectIcons({
@@ -108,9 +107,7 @@ class _DeleteOrLockObjectIcons extends ConsumerWidget {
     final selectedObj =
         ref.read(objectsControllerProvider.notifier).selectedObject;
     if (selectedObj != null && isDeleteIcon) {
-        ref
-            .read(objectsControllerProvider.notifier)
-            .removeObject(selectedObj.id);
+      ref.read(objectsControllerProvider.notifier).removeObject(selectedObj.id);
     }
   }
 }

@@ -35,7 +35,11 @@ class ObjectEditorColorProperties extends ConsumerWidget {
         (value) {
           switch (colorProperty) {
             case ObjectEditorColorProperty.borderColor:
-              return value.selectedObject?.borderColor;
+              if (value.selectedObject?.objType.isSectionObject == true) {
+                return value.selectedObject?.borderColor;
+              } else {
+                return null;
+              }
             case ObjectEditorColorProperty.fillColor:
               return value.selectedObject?.fillColor;
           }
@@ -59,8 +63,8 @@ class ObjectEditorColorProperties extends ConsumerWidget {
                   pickerColor: Color(color),
                   onColorChanged: onColorChanged,
                   child: Container(
-                    height: 35,
-                    width: 38,
+                    height: 20,
+                    width: 20,
                     decoration: BoxDecoration(
                       color: Color(color),
                       borderRadius: const BorderRadius.all(

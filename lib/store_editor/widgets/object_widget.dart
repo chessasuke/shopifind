@@ -54,7 +54,7 @@ class ObjectWidget extends ConsumerWidget {
                     }
                   }
                 },
-                child: object.isSectionObject
+                child: object.objType.isSectionObject
                     ? SectionObject(object: object)
                     : IconObject(object: object),
               ),
