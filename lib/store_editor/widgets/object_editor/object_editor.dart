@@ -95,7 +95,7 @@ class _ObjectEditorState extends ConsumerState<ObjectEditor> {
             ),
           ),
 
-          /// Color properties - fill
+          /// Color properties: fill
           SizedBox(
             height: 40,
             child: ObjectEditorColorProperties(
@@ -105,7 +105,7 @@ class _ObjectEditorState extends ConsumerState<ObjectEditor> {
             ),
           ),
 
-          /// Color properties - border
+          /// Color properties: border
           SizedBox(
             height: 40,
             child: ObjectEditorColorProperties(
@@ -200,7 +200,6 @@ class _ObjectEditorState extends ConsumerState<ObjectEditor> {
   }
 
   void _onBorderColorChanged(Color color, WidgetRef ref) {
-    print('======== _onBorderColorChanged: $color');
     final selectedCanvObj =
         ref.read(objectsControllerProvider.notifier).selectedObject;
     if (selectedCanvObj != null) {

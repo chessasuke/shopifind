@@ -24,9 +24,6 @@ class ObjectEditorTransformation extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final initialValue = getInitialValue(ref);
 
-    print(
-        'transformation: ${transformation.name} | initialValue: $initialValue');
-
     return SizedBox(
       height: 35,
       child: initialValue != null

@@ -30,23 +30,12 @@ class _EditorTextInputState extends ConsumerState<EditorTextInput> {
 
   @override
   void initState() {
-    print(
-        '======= EditorTextInput initState initialValue: ${widget.initialValue} | key: ${widget.key.toString()}');
-    _controller = TextEditingController();
+    _controller = TextEditingController(text: widget.initialValue);
     super.initState();
   }
 
   @override
-  void didChangeDependencies() {
-    print(
-        '======= EditorTextInput didChangeDependencies initialValue: ${widget.initialValue} | key: ${widget.key.toString()}');
-    super.didChangeDependencies();
-  }
-
-  @override
   void didUpdateWidget(covariant EditorTextInput oldWidget) {
-    print(
-        '======= EditorTextInput didUpdateWidget initialValue: ${widget.initialValue} | key: ${widget.key.toString()}');
     _controller.text = widget.initialValue;
     _controller.selection = TextSelection.fromPosition(
       TextPosition(offset: _controller.text.length),
