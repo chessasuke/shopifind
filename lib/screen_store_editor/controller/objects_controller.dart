@@ -27,7 +27,6 @@ class CanvObjsNotifier extends StateNotifier<CanvasState> {
   CanvObj? get selectedObject => state.selectedObject;
 
   void selectObject(String id) {
-    print('======= select obj with id: $id');
     if (state.selectedObject?.id == id) {
       return;
     }

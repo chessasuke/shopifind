@@ -21,11 +21,9 @@ final storeServiceAdapter = FutureProvider.autoDispose(
     // await Future.delayed(const Duration(seconds: 200));
     final List<Store> stores = [];
     for (final item in data.docs) {
-      print('item: $item');
       final store = Store.fromFirestore(snapshot: item);
       stores.add(store);
     }
-    print('stores: ${stores.length}');
     return stores;
   },
 );

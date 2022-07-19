@@ -1,98 +1,113 @@
-// import 'package:shopifind/controller/product_providers.dart';
-// import 'package:shopifind/store_editor/model/canv_obj.dart';
-// import 'package:shopifind/widgets/upload_btn.dart';
-// import 'package:shopifind/widgets/section_dialog_widgets.dart';
-// import 'package:flutter/material.dart';
-// import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:auto_size_text/auto_size_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shopifind/common/constants/app_colors.dart';
+import 'package:shopifind/common/text/text_style.dart';
+import 'package:shopifind/screen_store_editor/controller/product_providers.dart';
+import 'package:shopifind/screen_store_editor/model/canv_obj.dart';
+import 'package:shopifind/screen_store_editor/widgets/products/dialog_products_heading.dart';
+import 'package:shopifind/screen_store_editor/widgets/products/upload_btn.dart';
 
-// class SectionDialog extends StatelessWidget {
-//   const SectionDialog({Key? key, required this.obj}) : super(key: key);
-//   final CanvObj obj;
+class ManageSectionDialog extends StatelessWidget {
+  const ManageSectionDialog({
+    required this.section,
+    Key? key,
+  }) : super(key: key);
+  final CanvObj section;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     final screenSize = MediaQuery.of(context).size;
-//     return Dialog(
-//       child: SizedBox(
-//         width: screenSize.width * 0.8,
-//         height: screenSize.height * 0.8,
-//         child: Column(
-//           children: [
-//             Container(
-//               constraints: const BoxConstraints(
-//                 maxHeight: 50,
-//               ),
-//               child: Row(
-//                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                 children: [
-//                   Padding(
-//                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-//                     child: Container(
-//                       constraints: const BoxConstraints(maxWidth: 150),
-//                       child: Text(
-//                         obj.description,
-//                         style: const TextStyle(
-//                           fontSize: 20,
-//                           color: Colors.black,
-//                           fontWeight: FontWeight.bold,
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                   Row(
-//                     children: [
-//                       DialogUploadBtn(sectionID: obj.id),
-//                       // DialogDeleteBtn(id: obj.id),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             Container(
-//               margin: const EdgeInsets.all(8),
-//               width: screenSize.width * 0.6,
-//               height: 1,
-//               color: Theme.of(context).colorScheme.surface,
-//             ),
-//             Consumer(builder: (context, WidgetRef ref, child) {
-//               final products = ref.watch(productsBySectionProvider(obj.id));
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      child: Container(
+        constraints: const BoxConstraints(maxWidth: 500),
+        color: AppColors.neutral100,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _Heading(section: section),
+              _MainContent(sectionId: section.id),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
 
-//               if (products.isNotEmpty) {
-//                 return SizedBox(
-//                   child: Column(
-//                     mainAxisSize: MainAxisSize.max,
-//                     children: [
-//                       const DialogProductsHeading(),
-//                       SizedBox(
-//                         height: screenSize.height * 0.8 - 150,
-//                         child: ListView.builder(
-//                             padding: const EdgeInsets.symmetric(vertical: 8),
-//                             itemCount: products.length,
-//                             itemBuilder: (BuildContext context, int index) {
-//                               return DialogProductRecord(
-//                                   index: index,
-//                                   color: index % 2 == 0
-//                                       ? Theme.of(context).colorScheme.secondary
-//                                       : Theme.of(context).colorScheme.primary,
-//                                   product: products.elementAt(index));
-//                             }),
-//                       ),
-//                     ],
-//                   ),
-//                 );
-//               } else {
-//                 return SizedBox(
-//                   height: screenSize.height * 0.5,
-//                   child: Align(
-//                     child: Text('Empty Section',
-//                         style: Theme.of(context).textTheme.headline2),
-//                   ),
-//                 );
-//               }
-//             }),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
+class _Heading extends StatelessWidget {
+  const _Heading({
+    required this.section,
+    Key? key,
+  }) : super(key: key);
+
+  final CanvObj section;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        AutoSizeText(
+          section.description,
+          style: TextStyles.heading02,
+          maxLines: 1,
+        ),
+        const SizedBox(width: 16),
+        DialogUploadBtn(sectionId: section.id),
+      ],
+    );
+  }
+}
+
+class _MainContent extends StatelessWidget {
+  const _MainContent({
+    required this.sectionId,
+    Key? key,
+  }) : super(key: key);
+
+  final String sectionId;
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer(
+      builder: (context, WidgetRef ref, child) {
+        final products = ref.watch(productsBySectionProvider(sectionId));
+        if (products.isNotEmpty) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const DialogProductsHeading(),
+              Container(
+                constraints:
+                    const BoxConstraints(maxHeight: 400, maxWidth: 500),
+                child: ListView.builder(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  itemCount: products.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return DialogProductRecord(
+                      index: index,
+                      color: index % 2 == 0
+                          ? AppColors.neutral200
+                          : AppColors.neutral300,
+                      product: products.elementAt(index),
+                    );
+                  },
+                ),
+              ),
+            ],
+          );
+        } else {
+          return Center(
+            child: Text(
+              'Empty Section',
+              style: TextStyles.heading02,
+            ),
+          );
+        }
+      },
+    );
+  }
+}

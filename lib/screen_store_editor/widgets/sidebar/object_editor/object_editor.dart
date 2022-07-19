@@ -9,7 +9,6 @@ import 'package:shopifind/screen_store_editor/widgets/sidebar/object_editor/obje
 import 'package:shopifind/screen_store_editor/widgets/sidebar/object_editor/object_editor_id_fields.dart';
 import 'package:shopifind/screen_store_editor/widgets/sidebar/object_editor/object_editor_transformation.dart';
 
-
 enum TransformationType {
   verticalTranslation,
   horizontalTranslation,
@@ -66,6 +65,7 @@ class _ObjectEditorState extends ConsumerState<ObjectEditor> {
                 ],
               ),
               const SizedBox(height: 10),
+
               /// Scaling
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -181,7 +181,7 @@ class _ObjectEditorState extends ConsumerState<ObjectEditor> {
                       ),
               ),
             );
-      } 
+      }
     }
   }
 
@@ -201,7 +201,7 @@ class _ObjectEditorState extends ConsumerState<ObjectEditor> {
     if (selectedCanvObj != null) {
       ref
           .read(objectsControllerProvider.notifier)
-          .updateObj(selectedCanvObj.copyWith(color: color.value));
+          .updateObj(selectedCanvObj.copyWith(fillColor: color.value));
     }
   }
 }

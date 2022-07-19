@@ -30,6 +30,8 @@ class ObjectEditorBorderRadius extends ConsumerWidget {
     return ref.watch(objectsControllerProvider.select((value) {
       if (value.selectedObject?.objType == ObjectType.section) {
         return value.selectedObject?.cornerRadius;
+      } else {
+        return null;
       }
     }));
   }

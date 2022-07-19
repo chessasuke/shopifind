@@ -45,7 +45,7 @@ class CanvObj extends Equatable {
     double? height,
     bool? isLocked,
     String? description,
-    int? color,
+    int? fillColor,
     int? borderColor,
     ObjectType? objType,
     double? cornerRadius,
@@ -57,7 +57,7 @@ class CanvObj extends Equatable {
       height: height ?? this.height,
       description: description ?? this.description,
       isLocked: isLocked ?? this.isLocked,
-      fillColor: color ?? this.fillColor,
+      fillColor: fillColor ?? this.fillColor,
       borderColor: borderColor ?? this.borderColor,
       objType: objType ?? this.objType,
       cornerRadius: cornerRadius ?? this.cornerRadius,
@@ -144,5 +144,6 @@ class Position {
 
   Map<String, dynamic> toJson() => _$PositionToJson(this);
 
-  factory Position.initial() => Position(dx: 0, dy: DisplayProperties.topbarHeight + 20);
+  factory Position.initial() =>
+      Position(dx: 0, dy: DisplayProperties.topbarHeight + 20);
 }

@@ -5,7 +5,6 @@ import 'package:shopifind/screen_store_editor/controller/objects_controller.dart
 import 'package:shopifind/screen_store_editor/model/canvas_object_type.dart';
 import 'package:shopifind/screen_store_editor/widgets/sidebar/object_editor/object_editor_text_input.dart';
 
-
 class ObjectEditorDimension extends ConsumerWidget {
   const ObjectEditorDimension({
     required this.onChange,
@@ -36,6 +35,8 @@ class ObjectEditorDimension extends ConsumerWidget {
     return ref.watch(objectsControllerProvider.select((value) {
       if (value.selectedObject?.objType == ObjectType.section) {
         return value.selectedObject?.description;
+      } else {
+        return null;
       }
     }));
   }

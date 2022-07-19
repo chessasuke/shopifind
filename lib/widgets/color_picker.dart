@@ -29,7 +29,7 @@ class WidgetColorPicker extends StatelessWidget {
                 portraitOnly: true,
                 onColorChanged: onColorChanged,
                 pickerAreaBorderRadius: BorderRadius.circular(15),
-                showLabel: false,
+                labelTypes: const [],
                 pickerAreaHeightPercent: 0.8,
               ),
             ),

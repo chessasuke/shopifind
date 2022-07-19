@@ -20,6 +20,21 @@ class Product extends Equatable {
 
   Map<String, dynamic> toJson() => _$ProductToJson(this);
 
+  Product copyWith({
+    String? id,
+    String? description,
+    String? sectionId,
+    double? price,
+    bool? isPublished,
+  }) {
+    return Product(
+      id: id ?? this.id,
+      description: description ?? this.description,
+      sectionId: sectionId ?? this.sectionId,
+      price: price ?? this.price,
+    );
+  }
+
   // Product.fromJson(Map<String, dynamic> json)
   //     : id = json['id'] as String,
   //       description = json['description'] as String,
@@ -33,20 +48,6 @@ class Product extends Equatable {
   //       'price': price,
   //     };
 
-  // Product copyWith({
-  //   String? id,
-  //   String? description,
-  //   String? sectionId,
-  //   double? price,
-  //   bool? isPublished,
-  // }) {
-  //   return Product(
-  //     id: id ?? this.id,
-  //     description: description ?? this.description,
-  //     sectionId: sectionId ?? this.sectionId,
-  //     price: price ?? this.price,
-  //   );
-  // }
 
   @override
   List<Object?> get props => [id, description, sectionId, price];

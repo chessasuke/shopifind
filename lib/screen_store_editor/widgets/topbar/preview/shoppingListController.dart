@@ -1,4 +1,4 @@
-// // ignore_for_file: file_names
+// ignore_for_file: file_names
 
 // import 'package:flutter_riverpod/flutter_riverpod.dart';
 // import 'package:shopifind/preview/mock_shopping_list_model.dart';

@@ -16,7 +16,6 @@ class AppService {
             file = File(result.files.first.path!);
             try {
               contents = await file.readAsString();
-              print('contents: $contents');
               return contents;
             } catch (e) {
               print("error in service_pickFile: $e");
