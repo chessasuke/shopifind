@@ -40,7 +40,7 @@ class StoreControllerNotifier extends StateNotifier<List<Store>> {
             name: newStore.name,
             items: newStore.items,
             objects: newStore.objects,
-            visible: newStore.visible,
+            isSaved: newStore.isSaved,
           )
         else
           store,

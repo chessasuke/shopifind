@@ -6,9 +6,14 @@ import 'package:shopifind/screen_store_editor/model/canv_obj.dart';
 import 'package:shopifind/screen_store_editor/model/canvas_object_type.dart';
 
 final objectsControllerProvider =
-    StateNotifierProvider<CanvObjsNotifier, CanvasState>((ref) {
+    StateNotifierProvider.autoDispose<CanvObjsNotifier, CanvasState>((ref) {
+  print('====== objectsControllerProvider called');
+
   final currentStore =
       ref.watch(storesControllerProvider.notifier).selectedStore;
+
+  print('====== currentStore id: ${currentStore?.id}');
+
   if (currentStore == null) {
     return CanvObjsNotifier(const CanvasState());
   } else {

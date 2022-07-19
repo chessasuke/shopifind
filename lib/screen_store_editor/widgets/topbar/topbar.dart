@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopifind/common/constants/app_colors.dart';
 import 'package:shopifind/common/text/text_style.dart';
-import 'package:shopifind/screen_store_editor/widgets/topbar/manage_store.dart';
+import 'package:shopifind/screen_store_editor/widgets/topbar/manage_store_btn.dart';
 import 'package:shopifind/screen_landing/landing_screen.dart';
 import 'package:shopifind/screen_store_editor/services/store_service_adapter.dart';
-import 'package:shopifind/screen_store_editor/widgets/topbar/upload_store.dart';
+import 'package:shopifind/screen_store_editor/widgets/topbar/upload_store_btn.dart';
 
 class Topbar extends StatelessWidget {
   const Topbar({Key? key}) : super(key: key);
@@ -49,10 +49,12 @@ class _SidebarTitle extends ConsumerWidget {
 }
 
 void _onBack(BuildContext context, WidgetRef ref) {
-  Navigator.pushAndRemoveUntil(
-      context,
-      MaterialPageRoute(builder: (context) => const LandingScreen()),
-      (route) => false);
+  Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+      builder: (context) => const LandingScreen(),
+    ),
+  );
 
   ref.refresh(storeServiceAdapter);
 }

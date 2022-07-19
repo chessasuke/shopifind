@@ -8,7 +8,7 @@ import 'package:shopifind/screen_store_editor/widgets/sidebar/sidebar.dart';
 import 'package:shopifind/screen_store_editor/widgets/topbar/topbar.dart';
 
 class StoreEditor extends ConsumerStatefulWidget {
-  const StoreEditor({Key? key}) : super(key: key);
+  const StoreEditor({Key? key,}) : super(key: key);
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _StoreEditorState();
@@ -19,6 +19,7 @@ class _StoreEditorState extends ConsumerState<StoreEditor> {
 
   @override
   void didChangeDependencies() {
+    
     screenSize = MediaQuery.of(context).size;
     super.didChangeDependencies();
   }
@@ -43,13 +44,14 @@ class _StoreEditorState extends ConsumerState<StoreEditor> {
 
             /// topbar
             Align(
-               alignment: Alignment.topLeft,
+              alignment: Alignment.topLeft,
               child: SizedBox(
                 width: screenSize.width,
                 height: DisplayProperties.topbarHeight,
                 child: const Topbar(),
               ),
             ),
+
             ///  canvas
             for (final item in canvas.objects) ObjectWidget(object: item),
           ],

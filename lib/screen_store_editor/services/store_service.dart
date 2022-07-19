@@ -58,7 +58,6 @@ class StoreFirestoreService {
           .doc(id)
           .set({
         'name': name,
-        'id': id,
       }, SetOptions(merge: true));
     } catch (e) {
       print('Error: $e');

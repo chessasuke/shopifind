@@ -14,13 +14,13 @@ class Store extends Equatable {
     required this.name,
     required this.items,
     required this.objects,
-    required this.visible,
+    required this.isSaved,
   });
   final String? id;
   final String? name;
   final List<CanvObj>? objects;
   final List<Product>? items;
-  final bool? visible;
+  final bool? isSaved;
 
   factory Store.fromJson(Map<String, dynamic> json) => _$StoreFromJson(json);
 
@@ -31,7 +31,7 @@ class Store extends Equatable {
         name: 'Store Name',
         items: const <Product>[],
         objects: const <CanvObj>[],
-        visible: false,
+        isSaved: false,
       );
 
   factory Store.fromFirestore({
@@ -68,7 +68,7 @@ class Store extends Equatable {
       name: data?['name'],
       objects: objs,
       items: products,
-      visible: data?['visible'] ?? false,
+      isSaved: data?['visible'] ?? false,
     );
   }
 
@@ -80,7 +80,7 @@ class Store extends Equatable {
       if (name != null) "name": name,
       if (objects != null) "objects": objs,
       if (items != null) "items": products,
-      if (visible != null) "visible": visible,
+      if (isSaved != null) "isSaved": true,
     };
     return data;
   }
@@ -90,22 +90,22 @@ class Store extends Equatable {
     String? name,
     List<Product>? items,
     List<CanvObj>? objects,
-    bool? visible,
+    bool? isSaved,
   }) {
     return Store(
       id: id ?? this.id,
       name: name ?? this.name,
       items: items ?? this.items,
       objects: objects ?? this.objects,
-      visible: visible ?? this.visible,
+      isSaved: isSaved ?? this.isSaved,
     );
   }
 
   @override
   String toString() {
-    return 'Store id: $id - name: $name - objects: ${objects?.length} - items: ${items?.length} - visible: $visible';
+    return 'Store id: $id - name: $name - objects: ${objects?.length} - items: ${items?.length} - visible: $isSaved';
   }
 
   @override
-  List<Object?> get props => [id, name, items, objects, visible];
+  List<Object?> get props => [id, name, items, objects, isSaved];
 }

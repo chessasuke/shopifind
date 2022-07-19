@@ -51,9 +51,9 @@ class StoreCard extends ConsumerWidget {
       ref.read(storesControllerProvider.notifier).addStore(newStore);
       ref.read(storesControllerProvider.notifier).selectStore(newStore.id!);
 
-      Navigator.push<void>(
+      Navigator.pushReplacement(
         context,
-        MaterialPageRoute<void>(
+        MaterialPageRoute(
           builder: (BuildContext context) => const StoreEditor(),
         ),
       );

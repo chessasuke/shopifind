@@ -69,6 +69,7 @@ class _StoreList extends ConsumerStatefulWidget {
 }
 
 class _StoreListState extends ConsumerState<_StoreList> {
+
   @override
   Widget build(BuildContext context) {
     final query = ref.watch(storeServiceAdapter);
@@ -78,7 +79,7 @@ class _StoreListState extends ConsumerState<_StoreList> {
           spacing: 25.0,
           runSpacing: 10.0,
           children: [
-            const StoreCard(), // Create Store widget
+            const StoreCard(),
             ...stores.map((store) => StoreCard(store: store)).toList(),
           ],
         );
