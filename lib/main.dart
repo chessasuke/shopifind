@@ -2,7 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopifind/firebase_options.dart';
-import 'package:shopifind/landing_screen/landing_screen.dart';
+import 'package:shopifind/screen_landing/landing_screen.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

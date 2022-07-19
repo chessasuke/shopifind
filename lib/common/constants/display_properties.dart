@@ -10,11 +10,17 @@ class DisplayProperties {
   static const double mainBottomPadding = 48.0;
   static const double mainTopPadding = 24.0;
 
-  /// Sidebar width
-  static const double sidebarWidth = 175.0;
+  /// Topbar
+  static const double topbarHeight = 50.0;
 
+
+  /// Sidebar
+  static const double sidebarWidth = 175.0;
+  static const double sidebarTextInputDescriptionWidth = 130.0;
+
+  static const double sidebarIdSectionHeight = 90.0;
   static const double sidebarTitleHeight = 50.0;
-  static const double sidebarObjectEditorHeight = 250.0;
+  static const double sidebarToolsSizedBoxHeight = 40.0;
 
   static final OutlineInputBorder focusedBorder = OutlineInputBorder(
     gapPadding: 1,
