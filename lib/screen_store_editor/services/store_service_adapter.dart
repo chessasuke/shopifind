@@ -5,6 +5,8 @@ import 'package:shopifind/screen_store_editor/services/store_service.dart';
 
 final storeServiceAdapter = FutureProvider.autoDispose(
   (ref) async {
+    print('========= storeServiceAdapter called');
+
     // Cancel the page request if the UI no longer needs it before the request
     // is finished. This typically happen if the user scrolls very fast
     // final cancelToken = CancelToken();
@@ -25,7 +27,8 @@ final storeServiceAdapter = FutureProvider.autoDispose(
       final store = Store.fromFirestore(snapshot: item);
       stores.add(store);
     }
-    ref.read(storesControllerProvider.notifier).addStores(stores);
+        print('========= storeServiceAdapter setStores');
+    ref.read(storesControllerProvider.notifier).setStores(stores);
     return stores;
   },
 );

@@ -12,7 +12,7 @@ class CanvObj extends Equatable {
   const CanvObj({
     required this.id,
     required this.height,
-    required this.description,
+    required this.name,
     required this.position,
     required this.width,
     required this.objType,
@@ -23,7 +23,7 @@ class CanvObj extends Equatable {
   });
 
   final String id;
-  final String description;
+  final String name;
   final double width;
   final double height;
   final List<double> position;
@@ -44,7 +44,7 @@ class CanvObj extends Equatable {
     double? width,
     double? height,
     bool? isLocked,
-    String? description,
+    String? name,
     int? fillColor,
     int? borderColor,
     ObjectType? objType,
@@ -55,7 +55,7 @@ class CanvObj extends Equatable {
       position: position ?? this.position,
       width: width ?? this.width,
       height: height ?? this.height,
-      description: description ?? this.description,
+      name: name ?? this.name,
       isLocked: isLocked ?? this.isLocked,
       fillColor: fillColor ?? this.fillColor,
       borderColor: borderColor ?? this.borderColor,
@@ -69,7 +69,7 @@ class CanvObj extends Equatable {
         height: 60,
         position: const [0, DisplayProperties.topbarHeight],
         width: 60,
-        description: objectType.getTooltipMsg(),
+        name: objectType.getTooltipMsg(),
         isLocked: false,
         fillColor: AppColors.primary100.value,
         borderColor: AppColors.primary100.value,
@@ -77,73 +77,6 @@ class CanvObj extends Equatable {
         cornerRadius: 0,
       );
 
-  // factory CanvasObject.fromJson(Map<String, dynamic> json) {
-  //   // print(
-  //   //     "id: ${json['id']} |types: json['dx']: ${json['dx'].runtimeType} | json['dy']: ${json['dy'].runtimeType} | json['backgroundColor']: ${json['backgroundColor'].runtimeType} | json['borderColor']: ${json['borderColor'].runtimeType}  |  json['objType']: ${json['objType'].runtimeType}");
-
-  //   final double dx = json['dx'] as double;
-  //   final double dy = json['dy'] as double;
-  //   final ObjectType objTypeFromString =
-  //       Utils.stringToObjType(json['objType'] as String);
-  //   final int backgroundColor = json['backgroundColor'] as int;
-  //   final int borderColor = json['borderColor'] as int;
-
-  //   return CanvasObject(
-  //       id: json['id'] as String,
-  //       description: json['name'] as String,
-  //       width: json['width'] as double,
-  //       height: json['height'] as double,
-  //       objType: objTypeFromString,
-  //       cornerRadius: json['cornerRadius'] as double,
-  //       backgroundColor: Color(backgroundColor),
-  //       borderColor: Color(borderColor),
-  //       position: Offset(dx, dy));
-  // }
-
-  // Map<String, dynamic> toJson() {
-  //   final double dx = position.dx;
-  //   final double dy = position.dy;
-  //   final String stringFromObjType = objType.name;
-  //   final int intFromBackgroundColor = backgroundColor.value;
-  //   final int intFromBorderColor = borderColor.value;
-
-  //   return {
-  //     'id': id,
-  //     'name': description,
-  //     'width': width,
-  //     'height': height,
-  //     'dx': dx,
-  //     'dy': dy,
-  //     'objType': stringFromObjType,
-  //     'cornerRadius': cornerRadius,
-  //     'backgroundColor': intFromBackgroundColor,
-  //     'borderColor': intFromBorderColor,
-  //   };
-  // }
-
-  // Size get size => Size(width, height);
-  // Offset get offset => position;
-  // Rect get rect => offset & size;
-
   @override
   List<Object?> get props => [id, position, height, width];
 }
-
-// @JsonSerializable()
-// class Position {
-//   Position({
-//     required this.dx,
-//     required this.dy,
-//   });
-
-//   double dx;
-//   double dy;
-
-//   factory Position.fromJson(Map<String, dynamic> json) =>
-//       _$PositionFromJson(json);
-
-//   Map<String, dynamic> toJson() => _$PositionToJson(this);
-
-//   factory Position.initial() =>
-//       Position(dx: 0, dy: DisplayProperties.topbarHeight + 20);
-// }

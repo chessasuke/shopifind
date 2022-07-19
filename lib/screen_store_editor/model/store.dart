@@ -68,7 +68,7 @@ class Store extends Equatable {
       name: data?['name'],
       objects: objs,
       items: products,
-      isSaved: data?['visible'] ?? false,
+      isSaved: data?['isSaved'] ?? false,
     );
   }
 
@@ -103,7 +103,7 @@ class Store extends Equatable {
 
   @override
   String toString() {
-    return 'Store id: $id - name: $name - objects: ${objects?.length} - items: ${items?.length} - visible: $isSaved';
+    return 'Store id: $id - name: $name - objects: ${objects?.length} - items: ${items?.length} - isSaved: $isSaved';
   }
 
   @override

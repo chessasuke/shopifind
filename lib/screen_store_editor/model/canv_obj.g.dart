@@ -9,7 +9,7 @@ part of 'canv_obj.dart';
 CanvObj _$CanvObjFromJson(Map<String, dynamic> json) => CanvObj(
       id: json['id'] as String,
       height: (json['height'] as num).toDouble(),
-      description: json['description'] as String,
+      name: json['name'] as String,
       position: (json['position'] as List<dynamic>)
           .map((e) => (e as num).toDouble())
           .toList(),
@@ -23,7 +23,7 @@ CanvObj _$CanvObjFromJson(Map<String, dynamic> json) => CanvObj(
 
 Map<String, dynamic> _$CanvObjToJson(CanvObj instance) => <String, dynamic>{
       'id': instance.id,
-      'description': instance.description,
+      'name': instance.name,
       'width': instance.width,
       'height': instance.height,
       'position': instance.position,

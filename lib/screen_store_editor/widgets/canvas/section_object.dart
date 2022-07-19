@@ -45,7 +45,7 @@ class _SectionObjectBorder extends StatelessWidget {
       child: object.objType == ObjectType.section
           ? Center(
               child: Text(
-                object.description,
+                object.name,
                 overflow: TextOverflow.fade,
               ),
             )

@@ -51,7 +51,7 @@ class ProductsControllerNotifier extends StateNotifier<List<Product>> {
         if (product.id == id)
           product.copyWith(
             id: product.id,
-            description: product.description,
+            name: product.name,
             sectionId: product.sectionId,
             price: product.price,
           )

@@ -51,7 +51,7 @@ class _Heading extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         AutoSizeText(
-          section.description,
+          section.name,
           style: TextStyles.heading02,
           maxLines: 1,
         ),

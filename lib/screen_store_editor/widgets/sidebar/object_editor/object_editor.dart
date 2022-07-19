@@ -2,9 +2,12 @@ import 'package:shopifind/common/constants/display_properties.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopifind/screen_store_editor/controller/objects_controller.dart';
+import 'package:shopifind/screen_store_editor/controller/store_controller.dart';
+import 'package:shopifind/screen_store_editor/model/canv_obj.dart';
+import 'package:shopifind/screen_store_editor/model/canvas_object_type.dart';
 import 'package:shopifind/screen_store_editor/widgets/sidebar/object_editor/object_editor_border_radius.dart';
 import 'package:shopifind/screen_store_editor/widgets/sidebar/object_editor/object_editor_color_properties.dart';
-import 'package:shopifind/screen_store_editor/widgets/sidebar/object_editor/object_editor_description.dart';
+import 'package:shopifind/screen_store_editor/widgets/sidebar/object_editor/object_editor_name.dart';
 import 'package:shopifind/screen_store_editor/widgets/sidebar/object_editor/object_editor_id_fields.dart';
 import 'package:shopifind/screen_store_editor/widgets/sidebar/object_editor/object_editor_transformation.dart';
 
@@ -106,9 +109,9 @@ class _ObjectEditorState extends ConsumerState<ObjectEditor> {
             onColorChanged: (color) => _onBorderColorChanged(color, ref),
           ),
 
-          /// Description (only for section objects)
-          ObjectEditorDimension(
-            onChange: (value) => _onChangeDescription(
+          /// Name (only for section objects)
+          ObjectEditorName(
+            onChange: (value) => _onChangeName(
               value: value,
               ref: ref,
             ),
@@ -121,16 +124,30 @@ class _ObjectEditorState extends ConsumerState<ObjectEditor> {
     );
   }
 
-  void _onChangeDescription({required String value, required WidgetRef ref}) {
+  void _onChangeName({required String value, required WidgetRef ref}) {
     final selectedCanvObj =
         ref.read(objectsControllerProvider.notifier).selectedObject;
 
     if (selectedCanvObj != null) {
-      if (value.isNotEmpty || value != '') {
-        ref
-            .read(objectsControllerProvider.notifier)
-            .updateObj(selectedCanvObj.copyWith(description: value));
-      }
+      if (selectedCanvObj.objType == ObjectType.section) {
+        if (value.isNotEmpty || value != '') {
+          ref
+              .read(objectsControllerProvider.notifier)
+              .updateObj(selectedCanvObj.copyWith(name: value));
+        }
+      } 
+      // else if (selectedCanvObj.objType == ObjectType.store) {
+      //   final selectedStore =
+      //       ref.read(storesControllerProvider.notifier).selectedStore;
+
+      //   print('==== selectedStore: $selectedStore');
+
+      //   if (selectedStore != null) {
+      //     ref
+      //         .read(storesControllerProvider.notifier)
+      //         .editStore(newStore: selectedStore.copyWith(name: value));
+      //   }
+      // }
     }
   }
 
@@ -178,7 +195,7 @@ class _ObjectEditorState extends ConsumerState<ObjectEditor> {
   }
 
   void _onBorderColorChanged(Color color, WidgetRef ref) {
-    final selectedCanvObj =
+    final CanvObj? selectedCanvObj =
         ref.read(objectsControllerProvider.notifier).selectedObject;
     if (selectedCanvObj != null) {
       ref

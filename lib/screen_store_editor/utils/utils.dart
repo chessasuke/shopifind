@@ -42,7 +42,7 @@ class Utils {
       }
       return Product(
         id: splitContent.elementAt(0),
-        description: splitContent.elementAt(1),
+        name: splitContent.elementAt(1),
         price: productPrice,
         sectionId: updateSection ?? splitContent.elementAt(3),
       );
@@ -55,7 +55,7 @@ class Utils {
     required bool isError,
   }) {
     final snackBar = SnackBar(
-        backgroundColor: AppColors.neutral400,
+        backgroundColor: AppColors.neutral200,
         elevation: 4.0,
         behavior: SnackBarBehavior.floating,
         content: Column(

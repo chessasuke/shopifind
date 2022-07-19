@@ -7,12 +7,12 @@ part 'product.g.dart';
 class Product extends Equatable {
   const Product({
     required this.id,
-    required this.description,
+    required this.name,
     required this.sectionId,
     required this.price,
   });
   final String id;
-  final String description;
+  final String name;
   final double price;
   final String sectionId;
 
@@ -23,19 +23,19 @@ class Product extends Equatable {
 
   Product copyWith({
     String? id,
-    String? description,
+    String? name,
     String? sectionId,
     double? price,
     bool? isPublished,
   }) {
     return Product(
       id: id ?? this.id,
-      description: description ?? this.description,
+      name: name ?? this.name,
       sectionId: sectionId ?? this.sectionId,
       price: price ?? this.price,
     );
   }
 
   @override
-  List<Object?> get props => [id, description, sectionId, price];
+  List<Object?> get props => [id, name, sectionId, price];
 }

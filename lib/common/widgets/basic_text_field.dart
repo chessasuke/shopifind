@@ -46,10 +46,13 @@ class _EditorTextInputState extends ConsumerState<BasicTextField> {
     return SizedBox(
       width: widget.width,
       child: TextField(
+        maxLines: 1,
+      
         style: TextStyles.body01.copyWith(color: AppColors.primary100),
         cursorColor: AppColors.primary100,
         textAlign: TextAlign.center,
         decoration: InputDecoration(
+          isDense: true,
           floatingLabelBehavior: FloatingLabelBehavior.auto,
           floatingLabelStyle:
               TextStyles.caption01.copyWith(color: AppColors.primary100),

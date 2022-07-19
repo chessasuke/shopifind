@@ -4,8 +4,6 @@ import 'package:shopifind/common/text/text_style.dart';
 import 'package:shopifind/common/widgets/basic_text_field.dart';
 import 'package:shopifind/common/widgets/simple_button.dart';
 import 'package:shopifind/screen_landing/landing_screen.dart';
-import 'package:shopifind/screen_store_editor/controller/objects_controller.dart';
-import 'package:shopifind/screen_store_editor/controller/product_providers.dart';
 import 'package:shopifind/screen_store_editor/controller/store_controller.dart';
 import 'package:shopifind/screen_store_editor/model/store.dart';
 import 'package:flutter/material.dart';
@@ -77,7 +75,7 @@ class _ManageStoreDialog extends ConsumerWidget {
                 }
               },
               initialValue: currentStore.name!,
-              labelText: 'Description',
+              labelText: 'Name',
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -101,11 +99,8 @@ class _ManageStoreDialog extends ConsumerWidget {
   }
 
   void _onSave(BuildContext context, WidgetRef ref) async {
-    String newDescription = ref.read(storeNameProvider);
-    if (newDescription.isEmpty) newDescription = 'Store Name';
-
-    print('======== currentStore.isSaved: ${currentStore.isSaved}');
-
+    String newName = ref.read(storeNameProvider);
+    if (newName.isEmpty) newName = 'Store Name';
     if (currentStore.isSaved == false) {
       Utils.showSnackbarMessage(
         message: "Please first save the store.",
@@ -118,17 +113,16 @@ class _ManageStoreDialog extends ConsumerWidget {
     try {
       await ref
           .read(storeServiceProvider)
-          .updateStoreName(id: currentStore.id!, name: newDescription);
+          .updateStoreName(id: currentStore.id!, name: newName);
       ref
           .read(storesControllerProvider.notifier)
-          .editStore(newStore: currentStore.copyWith(name: newDescription));
+          .editStore(newStore: currentStore.copyWith(name: newName));
 
       Utils.showSnackbarMessage(
         message: 'Name Updated!',
         context: context,
         isError: false,
       );
-      Navigator.pop(context);
     } catch (e) {
       print('Error: $e');
       Utils.showSnackbarMessage(
@@ -151,8 +145,6 @@ class _ManageStoreDialog extends ConsumerWidget {
     try {
       await ref.read(storeServiceProvider).deleteStore(currentStore.id!);
       ref.read(storesControllerProvider.notifier).removeStore(currentStore.id!);
-      ref.read(productsControllerProvider.notifier).reset();
-      ref.read(objectsControllerProvider.notifier).reset();
       Utils.showSnackbarMessage(
         message: 'Store Deleted',
         context: context,
@@ -161,7 +153,7 @@ class _ManageStoreDialog extends ConsumerWidget {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) =>  const LandingScreen(),
+          builder: (context) => const LandingScreen(),
         ),
       );
     } catch (e) {

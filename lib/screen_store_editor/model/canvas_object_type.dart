@@ -38,7 +38,7 @@ enum ObjectType {
       case ObjectType.entry:
         return 'Entry';
       case ObjectType.info:
-        return 'Info Center';
+        return 'Information';
       case ObjectType.checkout:
         return 'Checkout';
       case ObjectType.restroom:
@@ -46,7 +46,7 @@ enum ObjectType {
       case ObjectType.section:
         return 'Section';
       case ObjectType.store:
-        return 'Store Dimensions';
+        return 'Store';
     }
   }
 

@@ -15,7 +15,7 @@ Store _$StoreFromJson(Map<String, dynamic> json) => Store(
       objects: (json['objects'] as List<dynamic>?)
           ?.map((e) => CanvObj.fromJson(e as Map<String, dynamic>))
           .toList(),
-      isSaved: json['visible'] as bool?,
+      isSaved: json['isSaved'] as bool?,
     );
 
 Map<String, dynamic> _$StoreToJson(Store instance) => <String, dynamic>{
@@ -23,5 +23,5 @@ Map<String, dynamic> _$StoreToJson(Store instance) => <String, dynamic>{
       'name': instance.name,
       'objects': instance.objects?.map((e) => e.toJson()).toList(),
       'items': instance.items?.map((e) => e.toJson()).toList(),
-      'visible': instance.isSaved,
+      'isSaved': instance.isSaved,
     };
