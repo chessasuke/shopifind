@@ -1,7 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopifind/common/constants/app_colors.dart';
 import 'package:shopifind/common/text/text_style.dart';
+import 'package:shopifind/screen_store_editor/widgets/topbar/manage_store.dart';
+import 'package:shopifind/screen_landing/landing_screen.dart';
+import 'package:shopifind/screen_store_editor/services/store_service_adapter.dart';
+import 'package:shopifind/screen_store_editor/widgets/topbar/upload_store.dart';
 
 class Topbar extends StatelessWidget {
   const Topbar({Key? key}) : super(key: key);
@@ -11,29 +16,28 @@ class Topbar extends StatelessWidget {
     return Container(
       color: AppColors.neutral200,
       child: Row(
-        children: [
-          const _SidebarTitle(),
-          const Spacer(),
-          Text(
-            'TOPBAR',
-            style: TextStyles.heading03,
-          ),
-          const Spacer()
+        children: const [
+          _SidebarTitle(),
+          Spacer(),
+          ManageStoreBtn(),
+          SizedBox(width: 8),
+          SaveStoreBtn(),
+          SizedBox(width: 8),
         ],
       ),
     );
   }
 }
 
-class _SidebarTitle extends StatelessWidget {
+class _SidebarTitle extends ConsumerWidget {
   const _SidebarTitle({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: InkWell(
-        onTap: () {},
+        onTap: () => _onBack(context, ref),
         child: AutoSizeText(
           'ShopiFind',
           maxLines: 1,
@@ -42,4 +46,13 @@ class _SidebarTitle extends StatelessWidget {
       ),
     );
   }
+}
+
+void _onBack(BuildContext context, WidgetRef ref) {
+  Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(builder: (context) => const LandingScreen()),
+      (route) => false);
+
+  ref.refresh(storeServiceAdapter);
 }

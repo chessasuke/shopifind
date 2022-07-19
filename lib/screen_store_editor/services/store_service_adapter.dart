@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shopifind/screen_store_editor/controller/store_controller.dart';
 import 'package:shopifind/screen_store_editor/model/store.dart';
 import 'package:shopifind/screen_store_editor/services/store_service.dart';
 
@@ -24,6 +25,7 @@ final storeServiceAdapter = FutureProvider.autoDispose(
       final store = Store.fromFirestore(snapshot: item);
       stores.add(store);
     }
+    ref.read(storesControllerProvider.notifier).addStores(stores);
     return stores;
   },
 );

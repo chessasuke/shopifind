@@ -64,7 +64,7 @@ class ProductsControllerNotifier extends StateNotifier<List<Product>> {
     state = state.where((todo) => todo.id != id).toList();
   }
 
-  void clear() {
+  void reset() {
     state = [];
   }
 }

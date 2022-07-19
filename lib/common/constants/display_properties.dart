@@ -2,17 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:shopifind/common/constants/app_colors.dart';
 
 class DisplayProperties {
-  /// AppBar
-  static const double kAppBarSize = 68;
-
   /// Deafult Main Content Padding
   static const double mainHorizontalPadding = 20.0;
   static const double mainBottomPadding = 48.0;
   static const double mainTopPadding = 24.0;
 
   /// Topbar
-  static const double topbarHeight = 50.0;
-
+  static const double topbarHeight = 68;
 
   /// Sidebar
   static const double sidebarWidth = 175.0;

@@ -4,8 +4,8 @@ import 'package:shopifind/common/constants/app_colors.dart';
 import 'package:shopifind/common/constants/display_properties.dart';
 import 'package:shopifind/common/text/text_style.dart';
 
-class EditorTextInput extends ConsumerStatefulWidget {
-  const EditorTextInput({
+class BasicTextField extends ConsumerStatefulWidget {
+  const BasicTextField({
     Key? key,
     required this.width,
     required this.onChange,
@@ -19,10 +19,10 @@ class EditorTextInput extends ConsumerStatefulWidget {
   final String? labelText;
 
   @override
-  ConsumerState<EditorTextInput> createState() => _EditorTextInputState();
+  ConsumerState<BasicTextField> createState() => _EditorTextInputState();
 }
 
-class _EditorTextInputState extends ConsumerState<EditorTextInput> {
+class _EditorTextInputState extends ConsumerState<BasicTextField> {
   final FocusNode _focus = FocusNode();
   late TextEditingController _controller;
 
@@ -33,7 +33,7 @@ class _EditorTextInputState extends ConsumerState<EditorTextInput> {
   }
 
   @override
-  void didUpdateWidget(covariant EditorTextInput oldWidget) {
+  void didUpdateWidget(covariant BasicTextField oldWidget) {
     _controller.text = widget.initialValue;
     _controller.selection = TextSelection.fromPosition(
       TextPosition(offset: _controller.text.length),
@@ -54,7 +54,7 @@ class _EditorTextInputState extends ConsumerState<EditorTextInput> {
           floatingLabelStyle:
               TextStyles.caption01.copyWith(color: AppColors.primary100),
           border: DisplayProperties.focusedBorder,
-          enabledBorder:  DisplayProperties.focusedBorder,
+          enabledBorder: DisplayProperties.focusedBorder,
           focusedBorder: DisplayProperties.focusedBorder,
           labelStyle: TextStyles.body01.copyWith(color: AppColors.primary100),
           labelText: widget.labelText,

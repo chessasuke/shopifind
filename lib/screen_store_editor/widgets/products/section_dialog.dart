@@ -6,7 +6,7 @@ import 'package:shopifind/common/text/text_style.dart';
 import 'package:shopifind/screen_store_editor/controller/product_providers.dart';
 import 'package:shopifind/screen_store_editor/model/canv_obj.dart';
 import 'package:shopifind/screen_store_editor/widgets/products/dialog_products_heading.dart';
-import 'package:shopifind/screen_store_editor/widgets/products/upload_btn.dart';
+import 'package:shopifind/screen_store_editor/widgets/products/upload_products_btn.dart';
 
 class ManageSectionDialog extends StatelessWidget {
   const ManageSectionDialog({
@@ -56,7 +56,7 @@ class _Heading extends StatelessWidget {
           maxLines: 1,
         ),
         const SizedBox(width: 16),
-        DialogUploadBtn(sectionId: section.id),
+        UploadProdcutsBtn(sectionId: section.id),
       ],
     );
   }

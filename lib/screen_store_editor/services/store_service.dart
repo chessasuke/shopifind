@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopifind/firestore/collections/firestore_collection_keys.dart';
+import 'package:shopifind/screen_store_editor/model/store.dart';
 
-class AbortedException implements Exception {}
+// class AbortedException implements Exception {}
 
 // final storeDataProvider = FutureProvider.autoDispose(
 //   (ref) async {
@@ -26,26 +27,18 @@ class AbortedException implements Exception {}
 final storeServiceProvider = Provider((ref) => StoreFirestoreService());
 
 class StoreFirestoreService {
-  // Future<void> uploadToSever({
-  //   required Store store,
-  //   required List<Product> products,
-  //   required List<CanvObj> objects,
-  // }) async {
-  //   WriteBatch batch = FirebaseFirestore.instance.batch();
-  //   store = store.copyWith(items: products, objects: objects);
-  //   try {
-  //     batch.set(
-  //         FirebaseFirestore.instance
-  //             .collection(FirestoreCollectionKeys.stores)
-  //             .doc(store.id),
-  //         store.toJson(),
-  //         SetOptions(merge: true));
+  Future<void> saveStoreToServer({required Store store}) async {
+    try {
 
-  //     await batch.commit();
-  //   } catch (e) {
-  //     print('Error: $e');
-  //   }
-  // }
+      await FirebaseFirestore.instance
+          .collection(FirestoreCollectionKeys.stores)
+          .doc(store.id)
+          .set(store.toFirestore(), SetOptions(merge: true));
+    } catch (e) {
+      print('Error: $e');
+      rethrow;
+    }
+  }
 
   Future<QuerySnapshot<Map<String, dynamic>>> fetchStores() async {
     final query = await FirebaseFirestore.instance
@@ -55,25 +48,33 @@ class StoreFirestoreService {
     return query;
   }
 
-  // Future<void> updateStoreDescription(String id, String newDescription) async {
-  //   try {
-  //     await FirebaseFirestore.instance
-  //         .collection(FirestoreCollectionKeys.stores)
-  //         .doc(id)
-  //         .update({'description': newDescription});
-  //   } catch (e) {
-  //     print('Error: $e');
-  //   }
-  // }
+  Future<void> updateStoreName({
+    required String id,
+    required String name,
+  }) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(FirestoreCollectionKeys.stores)
+          .doc(id)
+          .set({
+        'name': name,
+        'id': id,
+      }, SetOptions(merge: true));
+    } catch (e) {
+      print('Error: $e');
+      rethrow;
+    }
+  }
 
-  // Future<void> deleteStore(String id) async {
-  //   try {
-  //     await FirebaseFirestore.instance
-  //         .collection(FirestoreCollectionKeys.stores)
-  //         .doc(id)
-  //         .delete();
-  //   } catch (e) {
-  //     print('Error: $e');
-  //   }
-  // }
+  Future<void> deleteStore(String id) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(FirestoreCollectionKeys.stores)
+          .doc(id)
+          .delete();
+    } catch (e) {
+      print('Error: $e');
+      rethrow;
+    }
+  }
 }

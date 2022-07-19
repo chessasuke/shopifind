@@ -7,7 +7,7 @@ import 'package:shopifind/screen_store_editor/model/canv_obj.dart';
 import 'package:shopifind/screen_store_editor/model/canvas_object_type.dart';
 import 'package:shopifind/screen_store_editor/widgets/canvas/icon_object.dart';
 import 'package:shopifind/screen_store_editor/widgets/canvas/section_object.dart';
-import 'package:shopifind/view/section_dialog.dart';
+import 'package:shopifind/screen_store_editor/widgets/products/section_dialog.dart';
 
 class ObjectWidget extends ConsumerWidget {
   const ObjectWidget({
@@ -24,8 +24,8 @@ class ObjectWidget extends ConsumerWidget {
     return Stack(
       children: [
         Positioned(
-          left: object.position.dx,
-          top: object.position.dy,
+          left: object.position.first,
+          top: object.position.last,
           child: SizedBox(
             width: object.width + 10,
             height: object.height + 10,
@@ -62,10 +62,7 @@ class ObjectWidget extends ConsumerWidget {
 
         ref.read(objectsControllerProvider.notifier).updateObj(
               object.copyWith(
-                position: Position(
-                  dx: newPosition.dx,
-                  dy: newPosition.dy,
-                ),
+                position: [newPosition.dx, newPosition.dy],
               ),
             );
       }
@@ -84,30 +81,30 @@ class _ResizingBtn extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Positioned(
-      left: object.position.dx + object.width,
-      top: object.position.dy + object.height,
+      left: object.position.first + object.width,
+      top: object.position.last + object.height,
       child: GestureDetector(
-        onVerticalDragUpdate: (details) =>  _onUpdateWidth(details, ref),
+        onVerticalDragUpdate: (details) => _onUpdateWidth(details, ref),
         onHorizontalDragUpdate: (details) => _onUpdateHeight(details, ref),
         child: const _ReisizingBtnIcon(),
       ),
     );
   }
 
-void _onUpdateWidth(DragUpdateDetails details, WidgetRef ref) {
-          final size =
-              ref.read(objectsControllerProvider.notifier).getSize(object.id);
-          double newHeight;
-          if (size != null) {
-            newHeight = size.height + details.delta.dy;
-            if (newHeight < 30) newHeight = 30;
-            ref
-                .read(objectsControllerProvider.notifier)
-                .updateObj(object.copyWith(height: newHeight));
-          }
-        }
+  void _onUpdateWidth(DragUpdateDetails details, WidgetRef ref) {
+    final size =
+        ref.read(objectsControllerProvider.notifier).getSize(object.id);
+    double newHeight;
+    if (size != null) {
+      newHeight = size.height + details.delta.dy;
+      if (newHeight < 30) newHeight = 30;
+      ref
+          .read(objectsControllerProvider.notifier)
+          .updateObj(object.copyWith(height: newHeight));
+    }
+  }
 
-        void _onUpdateHeight(DragUpdateDetails details, WidgetRef ref) {
+  void _onUpdateHeight(DragUpdateDetails details, WidgetRef ref) {
     final size =
         ref.read(objectsControllerProvider.notifier).getSize(object.id);
     double newWidth;
@@ -127,13 +124,13 @@ class _ReisizingBtnIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-          width: 10,
-          height: 10,
-          decoration: const BoxDecoration(
-            color: AppColors.neutral400,
-            shape: BoxShape.circle,
-          ),
-        );
+      width: 10,
+      height: 10,
+      decoration: const BoxDecoration(
+        color: AppColors.neutral400,
+        shape: BoxShape.circle,
+      ),
+    );
   }
 }
 
@@ -148,8 +145,8 @@ class _EllipsisButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      left: object.position.dx + object.width - 10,
-      top: object.position.dy + 5,
+      left: object.position.first + object.width - 10,
+      top: object.position.last + 5,
       child: InkWell(
         onTap: () => showDialog(
           context: context,

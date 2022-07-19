@@ -2,11 +2,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopifind/common/constants/app_colors.dart';
 import 'package:shopifind/common/constants/display_properties.dart';
 import 'package:flutter/material.dart';
+import 'package:shopifind/common/widgets/separator.dart';
 import 'package:shopifind/screen_store_editor/controller/objects_controller.dart';
 import 'package:shopifind/screen_store_editor/model/canv_obj.dart';
 import 'package:shopifind/screen_store_editor/model/canvas_object_type.dart';
 import 'package:shopifind/screen_store_editor/widgets/sidebar/object_editor/object_editor.dart';
-import 'package:shopifind/widgets/separator.dart';
 
 class Sidebar extends ConsumerWidget {
   const Sidebar({Key? key}) : super(key: key);

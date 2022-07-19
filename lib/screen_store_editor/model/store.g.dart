@@ -8,11 +8,11 @@ part of 'store.dart';
 
 Store _$StoreFromJson(Map<String, dynamic> json) => Store(
       id: json['id'] as String?,
-      description: json['description'] as String?,
+      name: json['name'] as String?,
       items: (json['items'] as List<dynamic>?)
           ?.map((e) => Product.fromJson(e as Map<String, dynamic>))
           .toList(),
-      objects: (json['layout'] as List<dynamic>?)
+      objects: (json['objects'] as List<dynamic>?)
           ?.map((e) => CanvObj.fromJson(e as Map<String, dynamic>))
           .toList(),
       visible: json['visible'] as bool?,
@@ -20,8 +20,8 @@ Store _$StoreFromJson(Map<String, dynamic> json) => Store(
 
 Map<String, dynamic> _$StoreToJson(Store instance) => <String, dynamic>{
       'id': instance.id,
-      'description': instance.description,
-      'layout': instance.objects?.map((e) => e.toJson()).toList(),
+      'name': instance.name,
+      'objects': instance.objects?.map((e) => e.toJson()).toList(),
       'items': instance.items?.map((e) => e.toJson()).toList(),
       'visible': instance.visible,
     };

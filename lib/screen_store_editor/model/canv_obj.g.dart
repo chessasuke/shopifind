@@ -10,10 +10,12 @@ CanvObj _$CanvObjFromJson(Map<String, dynamic> json) => CanvObj(
       id: json['id'] as String,
       height: (json['height'] as num).toDouble(),
       description: json['description'] as String,
-      position: Position.fromJson(json['position'] as Map<String, dynamic>),
+      position: (json['position'] as List<dynamic>)
+          .map((e) => (e as num).toDouble())
+          .toList(),
       width: (json['width'] as num).toDouble(),
       objType: $enumDecode(_$ObjectTypeEnumMap, json['objType']),
-      fillColor: json['color'] as int,
+      fillColor: json['fillColor'] as int,
       borderColor: json['borderColor'] as int,
       cornerRadius: (json['cornerRadius'] as num).toDouble(),
       isLocked: json['isLocked'] as bool? ?? false,
@@ -27,26 +29,16 @@ Map<String, dynamic> _$CanvObjToJson(CanvObj instance) => <String, dynamic>{
       'position': instance.position,
       'objType': _$ObjectTypeEnumMap[instance.objType]!,
       'isLocked': instance.isLocked,
-      'color': instance.fillColor,
+      'fillColor': instance.fillColor,
       'borderColor': instance.borderColor,
       'cornerRadius': instance.cornerRadius,
     };
 
 const _$ObjectTypeEnumMap = {
-  ObjectType.store: 'store',
-  ObjectType.section: 'section',
+  ObjectType.entry: 'entry',
   ObjectType.info: 'info',
   ObjectType.checkout: 'checkout',
   ObjectType.restroom: 'restroom',
-  ObjectType.entry: 'entry',
+  ObjectType.section: 'section',
+  ObjectType.store: 'store',
 };
-
-Position _$PositionFromJson(Map<String, dynamic> json) => Position(
-      dx: (json['x'] as num).toDouble(),
-      dy: (json['y'] as num).toDouble(),
-    );
-
-Map<String, dynamic> _$PositionToJson(Position instance) => <String, dynamic>{
-      'x': instance.dx,
-      'y': instance.dy,
-    };

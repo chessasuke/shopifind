@@ -6,8 +6,9 @@ import 'package:shopifind/screen_store_editor/utils/utils.dart';
 import 'package:shopifind/service/service.dart';
 import 'package:flutter/material.dart';
 
-class DialogUploadBtn extends ConsumerWidget {
-  const DialogUploadBtn({Key? key, required this.sectionId}) : super(key: key);
+class UploadProdcutsBtn extends ConsumerWidget {
+  const UploadProdcutsBtn({Key? key, required this.sectionId})
+      : super(key: key);
 
   final String sectionId;
 

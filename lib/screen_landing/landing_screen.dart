@@ -27,24 +27,25 @@ class LandingScreen extends StatelessWidget {
   }
 }
 
-
 class _AppBar extends StatelessWidget implements PreferredSizeWidget {
   const _AppBar({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return AppBar(
-        leading: const Center(
-          child: CircleAvatar(
-            backgroundColor: AppColors.neutral300,
-            child: Text('A'),
-          ),
+      leading: const Center(
+        child: CircleAvatar(
+          backgroundColor: AppColors.neutral300,
+          child: Text('A'),
         ),
-        elevation: 1,
-        backgroundColor: AppColors.neutral200,
-      );
+      ),
+      elevation: 1,
+      backgroundColor: AppColors.neutral200,
+    );
   }
+
   @override
-  Size get preferredSize => const Size.fromHeight(DisplayProperties.kAppBarSize);
+  Size get preferredSize =>
+      const Size.fromHeight(DisplayProperties.topbarHeight);
 }
 
 class _Title extends StatelessWidget {
@@ -60,10 +61,16 @@ class _Title extends StatelessWidget {
   }
 }
 
-class _StoreList extends ConsumerWidget {
+class _StoreList extends ConsumerStatefulWidget {
   const _StoreList({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_StoreList> createState() => _StoreListState();
+}
+
+class _StoreListState extends ConsumerState<_StoreList> {
+  @override
+  Widget build(BuildContext context) {
     final query = ref.watch(storeServiceAdapter);
     return query.when(
       data: (stores) {
@@ -94,7 +101,9 @@ class _Loading extends StatelessWidget {
         SizedBox(
           width: 60,
           height: 60,
-          child: CircularProgressIndicator(color: AppColors.primary100,),
+          child: CircularProgressIndicator(
+            color: AppColors.primary100,
+          ),
         ),
       ],
     );

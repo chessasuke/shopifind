@@ -11,13 +11,13 @@ part 'store.g.dart';
 class Store extends Equatable {
   const Store({
     required this.id,
-    required this.description,
+    required this.name,
     required this.items,
     required this.objects,
     required this.visible,
   });
   final String? id;
-  final String? description;
+  final String? name;
   final List<CanvObj>? objects;
   final List<Product>? items;
   final bool? visible;
@@ -26,102 +26,86 @@ class Store extends Equatable {
 
   Map<String, dynamic> toJson() => _$StoreToJson(this);
 
-  factory Store.fromFirestore({
-    required DocumentSnapshot<Map<String, dynamic>> snapshot,
-    SnapshotOptions? options,
-  }) {
-    final data = snapshot.data();
-    return Store(
-      id: data?['id'],
-      description: data?['description'],
-      items: data?['items'] ?? [],
-      visible: data?['visible'],
-      objects: data?['objects'],
-    );
-  }
-
-    factory Store.initial() => Store(
+  factory Store.initial() => Store(
         id: const Uuid().v4(),
-        description: 'Store Description',
+        name: 'Store Name',
         items: const <Product>[],
         objects: const <CanvObj>[],
         visible: false,
       );
 
+  factory Store.fromFirestore({
+    required DocumentSnapshot<Map<String, dynamic>> snapshot,
+    SnapshotOptions? options,
+  }) {
+    final data = snapshot.data();
+
+    late final List<CanvObj>? objs;
+    late final List<Product>? products;
+
+    if (data?['objects'] != null) {
+      objs = (data?['objects'] is Iterable)
+          ? List.from(data?['objects']).map((item) {
+              return CanvObj.fromJson((item as Map<String, dynamic>));
+            }).toList()
+          : null;
+    } else {
+      objs = [];
+    }
+
+    if (data?['items'] != null) {
+      products = (data?['items'] is Iterable)
+          ? List.from(data?['items']).map((product) {
+              return Product.fromJson((product as Map<String, dynamic>));
+            }).toList()
+          : null;
+    } else {
+      products = [];
+    }
+
+    return Store(
+      id: data?['id'],
+      name: data?['name'],
+      objects: objs,
+      items: products,
+      visible: data?['visible'] ?? false,
+    );
+  }
+
   Map<String, dynamic> toFirestore() {
-    return {
+    final objs = objects?.map((obj) => obj.toJson()).toList() ?? [];
+    final products = items?.map((product) => product.toJson()).toList() ?? [];
+    final data = {
       if (id != null) "id": id,
-      if (description != null) "description": description,
-      if (items != null) "items": items,
+      if (name != null) "name": name,
+      if (objects != null) "objects": objs,
+      if (items != null) "items": products,
       if (visible != null) "visible": visible,
-      if (objects != null) "objects": objects,
     };
+    return data;
   }
 
   Store copyWith({
     String? id,
-    String? description,
+    String? name,
     List<Product>? items,
     List<CanvObj>? objects,
     bool? visible,
   }) {
     return Store(
       id: id ?? this.id,
-      description: description ?? this.description,
+      name: name ?? this.name,
       items: items ?? this.items,
       objects: objects ?? this.objects,
       visible: visible ?? this.visible,
     );
   }
 
-  // factory Store.initialWithId({required String id}) => Store(
-  //       id: id,
-  //       description: 'Store Description',
-  //       products: const <Product>[],
-  //       canvasObjects: const <CanvasObject>[],
-  //       isPublished: false,
-  //     );
-
-  // factory Store.fromJson(Map<String, dynamic> json) {
-  //   final objectsFetched = json['objects'];
-  //   final List<CanvasObject> objects = [];
-
-  //   final productsFetched = json['products'];
-  //   final List<Product> products = [];
-
-  //   for (final obj in objectsFetched) {
-  //     final CanvasObject newObj = CanvasObject.fromJson(obj);
-  //     objects.add(newObj);
-  //   }
-
-  //   for (final product in productsFetched) {
-  //     // print('product: $product | ${product.runtimeType}');
-  //     products.add(Product.fromJson(product));
-  //   }
-
-  //   return Store(
-  //     id: json['id'] as String,
-  //     description: json['description'] as String,
-  //     products: products,
-  //     canvasObjects: objects,
-  //     isPublished: json['isPublished'] as bool,
-  //   );
-  // }
-
-  // Map<String, dynamic> toJson() {
-  //   final List<Map<String, dynamic>> productsToJson =
-  //       products.map((e) => e.toJson()).toList();
-  //   final List<Map<String, dynamic>> objectsToJson =
-  //       canvasObjects.map((e) => e.toJson()).toList();
-  //   return {
-  //     'id': id,
-  //     'description': description,
-  //     'products': productsToJson,
-  //     'objects': objectsToJson,
-  //     'isPublished': false,
-  //   };
-  // }
+  @override
+  String toString() {
+    return 'Store id: $id - name: $name - objects: ${objects?.length} - items: ${items?.length} - visible: $visible';
+  }
 
   @override
-  List<Object?> get props => [id, description, items, objects, visible];
+  List<Object?> get props => [id, name, items, objects, visible];
 }

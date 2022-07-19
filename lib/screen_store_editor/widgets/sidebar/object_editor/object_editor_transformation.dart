@@ -3,8 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopifind/common/constants/display_properties.dart';
 import 'package:shopifind/screen_store_editor/controller/objects_controller.dart';
 import 'package:shopifind/screen_store_editor/widgets/sidebar/object_editor/object_editor.dart';
-import 'package:shopifind/screen_store_editor/widgets/sidebar/object_editor/object_editor_text_input.dart';
-
+import 'package:shopifind/common/widgets/basic_text_field.dart';
 
 class ObjectEditorTransformation extends ConsumerWidget {
   const ObjectEditorTransformation({
@@ -25,13 +24,13 @@ class ObjectEditorTransformation extends ConsumerWidget {
     return SizedBox(
       height: DisplayProperties.sidebarToolsSizedBoxHeight,
       child: initialValue != null
-          ? EditorTextInput(
-            key: ValueKey(transformation),
-            width: 60,
-            initialValue: initialValue,
-            labelText: label,
-            onChange: onChange,
-          )
+          ? BasicTextField(
+              key: ValueKey(transformation),
+              width: 60,
+              initialValue: initialValue,
+              labelText: label,
+              onChange: onChange,
+            )
           : null,
     );
   }
@@ -41,14 +40,14 @@ class ObjectEditorTransformation extends ConsumerWidget {
       case TransformationType.verticalTranslation:
         return ref.watch(
           objectsControllerProvider.select(
-            (value) => value.selectedObject?.position.dx.toStringAsFixed(0),
+            (value) => value.selectedObject?.position.first.toStringAsFixed(0),
           ),
         );
 
       case TransformationType.horizontalTranslation:
         return ref.watch(
           objectsControllerProvider.select(
-            (value) => value.selectedObject?.position.dy.toStringAsFixed(0),
+            (value) => value.selectedObject?.position.last.toStringAsFixed(0),
           ),
         );
 

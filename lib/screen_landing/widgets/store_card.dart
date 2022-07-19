@@ -5,7 +5,6 @@ import 'package:shopifind/screen_store_editor/controller/store_controller.dart';
 import 'package:shopifind/screen_store_editor/model/store.dart';
 import 'package:shopifind/screen_store_editor/store_editor_screen.dart';
 
-
 class StoreCard extends ConsumerWidget {
   const StoreCard({Key? key, this.store}) : super(key: key);
 
@@ -43,7 +42,7 @@ class StoreCard extends ConsumerWidget {
   }
 
   String getText() {
-    return store == null ? 'Create Store' : 'store.description';
+    return store == null ? 'Create Store' : store!.name ?? 'Store Name';
   }
 
   void _onTap(WidgetRef ref, BuildContext context) async {
@@ -59,9 +58,10 @@ class StoreCard extends ConsumerWidget {
         ),
       );
     } else {
-      Navigator.push<void>(
+      ref.read(storesControllerProvider.notifier).selectStore(store!.id!);
+      Navigator.pushReplacement(
         context,
-        MaterialPageRoute<void>(
+        MaterialPageRoute(
           builder: (BuildContext context) => const StoreEditor(),
         ),
       );

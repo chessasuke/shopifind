@@ -26,7 +26,7 @@ class CanvObj extends Equatable {
   final String description;
   final double width;
   final double height;
-  final Position position;
+  final List<double> position;
   final ObjectType objType;
   final bool isLocked;
   final int fillColor;
@@ -40,7 +40,7 @@ class CanvObj extends Equatable {
 
   CanvObj copyWith({
     String? id,
-    Position? position,
+    List<double>? position,
     double? width,
     double? height,
     bool? isLocked,
@@ -67,7 +67,7 @@ class CanvObj extends Equatable {
   factory CanvObj.initial(ObjectType objectType) => CanvObj(
         id: const Uuid().v4(),
         height: 60,
-        position: Position.initial(),
+        position: const [0, DisplayProperties.topbarHeight],
         width: 60,
         description: objectType.getTooltipMsg(),
         isLocked: false,
@@ -129,21 +129,21 @@ class CanvObj extends Equatable {
   List<Object?> get props => [id, position, height, width];
 }
 
-@JsonSerializable()
-class Position {
-  Position({
-    required this.dx,
-    required this.dy,
-  });
+// @JsonSerializable()
+// class Position {
+//   Position({
+//     required this.dx,
+//     required this.dy,
+//   });
 
-  double dx;
-  double dy;
+//   double dx;
+//   double dy;
 
-  factory Position.fromJson(Map<String, dynamic> json) =>
-      _$PositionFromJson(json);
+//   factory Position.fromJson(Map<String, dynamic> json) =>
+//       _$PositionFromJson(json);
 
-  Map<String, dynamic> toJson() => _$PositionToJson(this);
+//   Map<String, dynamic> toJson() => _$PositionToJson(this);
 
-  factory Position.initial() =>
-      Position(dx: 0, dy: DisplayProperties.topbarHeight + 20);
-}
+//   factory Position.initial() =>
+//       Position(dx: 0, dy: DisplayProperties.topbarHeight + 20);
+// }

@@ -16,7 +16,8 @@ class Product extends Equatable {
   final double price;
   final String sectionId;
 
-    factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
+  factory Product.fromJson(Map<String, dynamic> json) =>
+      _$ProductFromJson(json);
 
   Map<String, dynamic> toJson() => _$ProductToJson(this);
 
@@ -34,20 +35,6 @@ class Product extends Equatable {
       price: price ?? this.price,
     );
   }
-
-  // Product.fromJson(Map<String, dynamic> json)
-  //     : id = json['id'] as String,
-  //       description = json['description'] as String,
-  //       sectionId = json['sectionId'] as String,
-  //       price = json['price'] as double;
-
-  // Map<String, dynamic> toJson() => {
-  //       'id': id,
-  //       'description': description,
-  //       'sectionId': sectionId,
-  //       'price': price,
-  //     };
-
 
   @override
   List<Object?> get props => [id, description, sectionId, price];

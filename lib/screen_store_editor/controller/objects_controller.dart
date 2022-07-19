@@ -76,10 +76,10 @@ class CanvObjsNotifier extends StateNotifier<CanvasState> {
     );
   }
 
-  Position? getPosition(String id) {
+  Offset? getPosition(String id) {
     for (final CanvObj obj in state.objects) {
       if (obj.id == id) {
-        return obj.position;
+        return Offset(obj.position.first, obj.position.last);
       }
     }
     return null;
@@ -95,22 +95,17 @@ class CanvObjsNotifier extends StateNotifier<CanvasState> {
   }
 
   void updateObj(CanvObj newObj) {
-    // print('======== updateObj with position dx: ${newObj.position.dx}');
     final udpatedObjects = [
       for (final CanvObj obj in state.objects)
         if (obj.id == newObj.id) newObj else obj,
     ];
-    // print(
-    //     '===== BEFORE: ${state.objects.firstWhere((element) => element.id == newObj.id).position.dx}');
     state = state.copyWith(
       objects: udpatedObjects,
       selectedObject: newObj,
     );
-    // print(
-    //     '===== AFTER: ${state.objects.firstWhere((element) => element.id == newObj.id).position.dx}');
   }
 
-  void clear() {
+  void reset() {
     state = const CanvasState();
   }
 }

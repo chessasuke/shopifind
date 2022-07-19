@@ -2,7 +2,6 @@ import 'package:shopifind/common/constants/display_properties.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopifind/screen_store_editor/controller/objects_controller.dart';
-import 'package:shopifind/screen_store_editor/model/canv_obj.dart';
 import 'package:shopifind/screen_store_editor/widgets/sidebar/object_editor/object_editor_border_radius.dart';
 import 'package:shopifind/screen_store_editor/widgets/sidebar/object_editor/object_editor_color_properties.dart';
 import 'package:shopifind/screen_store_editor/widgets/sidebar/object_editor/object_editor_description.dart';
@@ -170,16 +169,9 @@ class _ObjectEditorState extends ConsumerState<ObjectEditor> {
       if (value.isNotEmpty && value != '') {
         ref.read(objectsControllerProvider.notifier).updateObj(
               selectedCanvObj.copyWith(
-                position: isDx
-                    ? Position(
-                        dx: newValue,
-                        dy: selectedCanvObj.position.dy,
-                      )
-                    : Position(
-                        dx: selectedCanvObj.position.dy,
-                        dy: newValue,
-                      ),
-              ),
+                  position: isDx
+                      ? [newValue, selectedCanvObj.position.last]
+                      : [selectedCanvObj.position.first, newValue]),
             );
       }
     }

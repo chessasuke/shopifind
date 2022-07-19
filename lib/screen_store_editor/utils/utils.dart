@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:shopifind/common/constants/app_colors.dart';
+import 'package:shopifind/common/text/text_style.dart';
 import 'package:shopifind/screen_store_editor/model/canvas_object_type.dart';
 import 'package:shopifind/screen_store_editor/model/product.dart';
 
@@ -44,5 +47,26 @@ class Utils {
         sectionId: updateSection ?? splitContent.elementAt(3),
       );
     }
+  }
+
+  static void showSnackbarMessage({
+    required String message,
+    required BuildContext context,
+    required bool isError,
+  }) {
+    final snackBar = SnackBar(
+        backgroundColor: AppColors.neutral400,
+        elevation: 4.0,
+        behavior: SnackBarBehavior.floating,
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              message,
+              style: TextStyles.heading02,
+            ),
+          ],
+        ));
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
