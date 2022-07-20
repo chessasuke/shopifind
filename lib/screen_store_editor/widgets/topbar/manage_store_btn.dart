@@ -10,6 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopifind/screen_store_editor/services/store_service.dart';
 import 'package:shopifind/screen_store_editor/utils/utils.dart';
+import 'package:shopifind/service/analytics/events/actions_events.dart';
+import 'package:shopifind/service/analytics/models/event.dart';
+import 'package:shopifind/service/analytics/providers/analytics_provider.dart';
 
 final storeNameProvider = StateProvider((ref) => '');
 
@@ -92,8 +95,8 @@ class _ManageStoreDialog extends ConsumerWidget {
                   color: AppColors.neutral200,
                   onTap: () => _onDelete(context, ref),
                   text: 'Delete Store',
-                  style: TextStyles.caption01
-                      .copyWith(color: AppColors.error500),
+                  style:
+                      TextStyles.caption01.copyWith(color: AppColors.error500),
                 ),
               ],
             )
@@ -104,6 +107,8 @@ class _ManageStoreDialog extends ConsumerWidget {
   }
 
   void _onSave(BuildContext context, WidgetRef ref) async {
+    Utils.trackEvent(event: Event(name: ActionsEvents.renameStore.name), ref: ref);
+
     String newName = ref.read(storeNameProvider);
     if (newName.isEmpty) newName = 'Store Name';
     if (currentStore.isSaved == false) {
@@ -139,6 +144,8 @@ class _ManageStoreDialog extends ConsumerWidget {
   }
 
   void _onDelete(BuildContext context, WidgetRef ref) async {
+        Utils.trackEvent(event: Event(name: ActionsEvents.deleteStore.name), ref: ref);
+
     // if (currentStore.isSaved == false) {
     //   Utils.showSnackbarMessage(
     //     message: "Store is not saved.",

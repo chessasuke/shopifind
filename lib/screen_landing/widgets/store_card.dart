@@ -6,6 +6,9 @@ import 'package:shopifind/common/text/text_style.dart';
 import 'package:shopifind/screen_store_editor/controller/store_controller.dart';
 import 'package:shopifind/screen_store_editor/model/store.dart';
 import 'package:shopifind/screen_store_editor/store_editor_screen.dart';
+import 'package:shopifind/screen_store_editor/utils/utils.dart';
+import 'package:shopifind/service/analytics/events/actions_events.dart';
+import 'package:shopifind/service/analytics/models/event.dart';
 
 class StoreCard extends ConsumerWidget {
   const StoreCard({Key? key, this.store}) : super(key: key);
@@ -33,11 +36,18 @@ class StoreCard extends ConsumerWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AutoSizeText(getText(), style: TextStyles.subheading01, maxLines: 1,),
+              AutoSizeText(
+                getText(),
+                style: TextStyles.subheading01,
+                maxLines: 1,
+              ),
               if (store == null)
                 const Padding(
                   padding: EdgeInsets.only(top: 3),
-                  child: Icon(Icons.add, color: AppColors.primary100,),
+                  child: Icon(
+                    Icons.add,
+                    color: AppColors.primary100,
+                  ),
                 ),
             ],
           ),
@@ -51,6 +61,11 @@ class StoreCard extends ConsumerWidget {
   }
 
   void _onTap(WidgetRef ref, BuildContext context) async {
+    Utils.trackEvent(
+      event: Event(name: ActionsEvents.clickedStoreCard.name),
+      ref: ref,
+    );
+
     if (store == null) {
       final Store newStore = Store.initial();
       ref.read(storesControllerProvider.notifier).addStore(newStore);

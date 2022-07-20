@@ -3,6 +3,8 @@ import 'package:shopifind/common/constants/app_colors.dart';
 import 'package:shopifind/screen_store_editor/controller/product_providers.dart';
 import 'package:shopifind/screen_store_editor/model/product.dart';
 import 'package:shopifind/screen_store_editor/utils/utils.dart';
+import 'package:shopifind/service/analytics/events/actions_events.dart';
+import 'package:shopifind/service/analytics/models/event.dart';
 import 'package:shopifind/service/service.dart';
 import 'package:flutter/material.dart';
 
@@ -49,22 +51,28 @@ class UploadProdcutsBtn extends ConsumerWidget {
               maxHeight: 50,
             ),
             child: TextButton(
-                onPressed: () async {
-                  final rawContent = await AppService.pickFileDesktop();
-                  if (rawContent != null) {
-                    await processContent(
-                      rawContent: rawContent,
-                      sectionId: sectionId,
-                      ref: ref,
-                      context: context,
-                    );
-                  }
-                },
+                onPressed: () => _onPressed(context: context, ref: ref),
                 child: const Text('Upload')),
           ),
         ],
       ),
     );
+  }
+
+  void _onPressed(
+      {required BuildContext context, required WidgetRef ref}) async {
+    Utils.trackEvent(
+        event: Event(name: ActionsEvents.addProducts.name), ref: ref);
+
+    final rawContent = await AppService.pickFileDesktop();
+    if (rawContent != null) {
+      await processContent(
+        rawContent: rawContent,
+        sectionId: sectionId,
+        ref: ref,
+        context: context,
+      );
+    }
   }
 }
 

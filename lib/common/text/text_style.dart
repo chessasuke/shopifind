@@ -7,7 +7,7 @@ class TextStyles {
   static const String fontFamily = 'OpenSans';
 
   static const TextStyle designSystemBaseTextStyle = TextStyle(
-        color: AppColors.texts,
+        color: AppColors.primary100,
     fontFamily: fontFamily,
     decoration: TextDecoration.none,
   );

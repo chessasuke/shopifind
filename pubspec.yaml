@@ -19,6 +19,7 @@ dependencies:
   # FIREBASE
   firebase_core: ^1.7.0
   cloud_firestore: ^3.3.0
+  firebase_analytics: ^9.2.0
 
   cupertino_icons: ^1.0.2
   equatable: ^2.0.0
@@ -30,6 +31,7 @@ dependencies:
   flutter_colorpicker: ^1.0.3
   auto_size_text: ^3.0.0
   json_annotation: ^4.6.0
+  rxdart: ^0.27.5
 
 
 

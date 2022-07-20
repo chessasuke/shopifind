@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopifind/common/constants/app_colors.dart';
 import 'package:shopifind/common/text/text_style.dart';
 import 'package:shopifind/screen_store_editor/model/canvas_object_type.dart';
 import 'package:shopifind/screen_store_editor/model/product.dart';
+import 'package:shopifind/service/analytics/models/event.dart';
+import 'package:shopifind/service/analytics/providers/analytics_provider.dart';
 
 class Utils {
+
+  static void trackEvent({required Event event, required WidgetRef ref}) {
+    ref.read(analyticsProvider).trackEvent(event);
+  }
+
   static ObjectType stringToObjType(String type) {
     switch (type) {
       case 'section':
