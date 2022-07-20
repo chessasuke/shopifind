@@ -60,7 +60,7 @@ class ObjectWidget extends ConsumerWidget {
       if (position != null) {
         final newPosition = Offset(position.dx, position.dy) + details.delta;
 
-        ref.read(objectsControllerProvider.notifier).updateObj(
+        ref.read(objectsControllerProvider.notifier).editObj(
               object.copyWith(
                 position: [newPosition.dx, newPosition.dy],
               ),
@@ -100,7 +100,7 @@ class _ResizingBtn extends ConsumerWidget {
       if (newHeight < 30) newHeight = 30;
       ref
           .read(objectsControllerProvider.notifier)
-          .updateObj(object.copyWith(height: newHeight));
+          .editObj(object.copyWith(height: newHeight));
     }
   }
 
@@ -113,7 +113,7 @@ class _ResizingBtn extends ConsumerWidget {
       if (newWidth < 30) newWidth = 30;
       ref
           .read(objectsControllerProvider.notifier)
-          .updateObj(object.copyWith(width: newWidth));
+          .editObj(object.copyWith(width: newWidth));
     }
   }
 }

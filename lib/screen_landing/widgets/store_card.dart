@@ -1,6 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:shopifind/common/constants/app_colors.dart';
+import 'package:shopifind/common/text/text_style.dart';
 import 'package:shopifind/screen_store_editor/controller/store_controller.dart';
 import 'package:shopifind/screen_store_editor/model/store.dart';
 import 'package:shopifind/screen_store_editor/store_editor_screen.dart';
@@ -20,20 +22,23 @@ class StoreCard extends ConsumerWidget {
           maxHeight: 150,
         ),
         decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(8),
-            ),
-            border: Border.all(
-              color: Theme.of(context).colorScheme.onPrimary,
-            )),
+          borderRadius: const BorderRadius.all(
+            Radius.circular(8),
+          ),
+          border: Border.all(
+            color: AppColors.primary100,
+          ),
+        ),
         child: SizedBox.expand(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              AutoSizeText(getText(), maxLines: 1),
+              AutoSizeText(getText(), style: TextStyles.subheading01, maxLines: 1,),
               if (store == null)
                 const Padding(
-                    padding: EdgeInsets.only(top: 3), child: Icon(Icons.add)),
+                  padding: EdgeInsets.only(top: 3),
+                  child: Icon(Icons.add, color: AppColors.primary100,),
+                ),
             ],
           ),
         ),

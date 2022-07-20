@@ -37,7 +37,6 @@ class StoreControllerNotifier extends StateNotifier<StoresState> {
   void editStore({
     required Store newStore,
   }) {
-    print('====== edit store: ${newStore.toString()}');
     state = state.copyWith(
       stores: [
         for (final Store store in state.stores)
@@ -51,12 +50,11 @@ class StoreControllerNotifier extends StateNotifier<StoresState> {
           else
             store,
       ],
+      selectedStore: newStore,
     );
   }
 
   void selectStore(String id) {
-    print('select store: $id');
-
     late final Store? selectedStore;
     for (final store in state.stores) {
       if (store.id == id) {

@@ -32,6 +32,9 @@ class _StoreEditorState extends ConsumerState<StoreEditor> {
       body: SizedBox.expand(
         child: Stack(
           children: [
+            ///  objects in canvas
+            for (final item in canvas.objects) ObjectWidget(object: item),
+
             /// sidebar
             Align(
               alignment: Alignment.bottomRight,
@@ -51,9 +54,6 @@ class _StoreEditorState extends ConsumerState<StoreEditor> {
                 child: const Topbar(),
               ),
             ),
-
-            ///  canvas
-            for (final item in canvas.objects) ObjectWidget(object: item),
           ],
         ),
       ),

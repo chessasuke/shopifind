@@ -15,12 +15,20 @@ class LandingScreen extends StatelessWidget {
       appBar: const _AppBar(),
       backgroundColor: AppColors.neutral300,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: const [
-            _Title(),
-            _StoreList(),
-          ],
+        child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: const [
+                Padding(
+                  padding: EdgeInsets.all(24.0),
+                  child: _Title(),
+                ),
+                _StoreList(),
+              ],
+            ),
+          ),
         ),
       ),
     );
@@ -35,7 +43,7 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
       leading: const Center(
         child: CircleAvatar(
           backgroundColor: AppColors.neutral300,
-          child: Text('A'),
+          child: Text('Anon'),
         ),
       ),
       elevation: 1,
@@ -53,10 +61,10 @@ class _Title extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const AutoSizeText(
+    return AutoSizeText(
       'ShopiFind',
       maxLines: 1,
-      style: TextStyle(fontSize: 56),
+      style: TextStyles.display02,
     );
   }
 }

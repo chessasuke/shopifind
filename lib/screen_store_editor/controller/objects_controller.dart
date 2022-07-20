@@ -96,7 +96,7 @@ class CanvObjsNotifier extends StateNotifier<CanvasState> {
     return null;
   }
 
-  void updateObj(CanvObj newObj) {
+  void editObj(CanvObj newObj) {
     final udpatedObjects = [
       for (final CanvObj obj in state.objects)
         if (obj.id == newObj.id) newObj else obj,

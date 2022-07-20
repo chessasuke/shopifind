@@ -59,6 +59,7 @@ class _ManageStoreDialog extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AutoSizeText(
                   'Store Id: ${currentStore.id}',
@@ -81,14 +82,18 @@ class _ManageStoreDialog extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 SimpleButton(
-                  color: AppColors.linkBlue,
+                  color: AppColors.neutral200,
+                  style: TextStyles.caption01
+                      .copyWith(color: AppColors.success500),
                   text: 'Save Changes',
                   onTap: () => _onSave(context, ref),
                 ),
                 SimpleButton(
-                  color: AppColors.error300,
+                  color: AppColors.neutral200,
                   onTap: () => _onDelete(context, ref),
                   text: 'Delete Store',
+                  style: TextStyles.caption01
+                      .copyWith(color: AppColors.error500),
                 ),
               ],
             )
@@ -134,14 +139,14 @@ class _ManageStoreDialog extends ConsumerWidget {
   }
 
   void _onDelete(BuildContext context, WidgetRef ref) async {
-    if (currentStore.isSaved == false) {
-      Utils.showSnackbarMessage(
-        message: "Store is not saved.",
-        context: context,
-        isError: false,
-      );
-      return;
-    }
+    // if (currentStore.isSaved == false) {
+    //   Utils.showSnackbarMessage(
+    //     message: "Store is not saved.",
+    //     context: context,
+    //     isError: false,
+    //   );
+    //   return;
+    // }
     try {
       await ref.read(storeServiceProvider).deleteStore(currentStore.id!);
       ref.read(storesControllerProvider.notifier).removeStore(currentStore.id!);

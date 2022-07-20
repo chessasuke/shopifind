@@ -60,7 +60,7 @@ class TextStyles {
 
   static const double subheading01FontSize = 14;
   static TextStyle subheading01 = TextStyles.designSystemBaseTextStyle.copyWith(
-    fontWeight: FontWeights.medium,
+    fontWeight: FontWeights.semiBold,
     color: AppColors.primary100,
     fontSize: subheading01FontSize,
     height: 20 / subheading01FontSize,

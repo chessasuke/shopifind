@@ -42,7 +42,7 @@ class ObjectEditorBorderRadius extends ConsumerWidget {
     if (selectedCanvObj != null) {
       ref
           .read(objectsControllerProvider.notifier)
-          .updateObj(selectedCanvObj.copyWith(cornerRadius: value));
+          .editObj(selectedCanvObj.copyWith(cornerRadius: value));
     }
   }
 }

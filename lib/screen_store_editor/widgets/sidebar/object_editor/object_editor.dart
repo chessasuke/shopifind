@@ -133,9 +133,9 @@ class _ObjectEditorState extends ConsumerState<ObjectEditor> {
         if (value.isNotEmpty || value != '') {
           ref
               .read(objectsControllerProvider.notifier)
-              .updateObj(selectedCanvObj.copyWith(name: value));
+              .editObj(selectedCanvObj.copyWith(name: value));
         }
-      } 
+      }
       // else if (selectedCanvObj.objType == ObjectType.store) {
       //   final selectedStore =
       //       ref.read(storesControllerProvider.notifier).selectedStore;
@@ -162,10 +162,10 @@ class _ObjectEditorState extends ConsumerState<ObjectEditor> {
       final newValue = double.tryParse(value);
       if (newValue != null && newValue > 30) {
         isWidth
-            ? ref.read(objectsControllerProvider.notifier).updateObj(
+            ? ref.read(objectsControllerProvider.notifier).editObj(
                   selectedCanvObj.copyWith(width: newValue),
                 )
-            : ref.read(objectsControllerProvider.notifier).updateObj(
+            : ref.read(objectsControllerProvider.notifier).editObj(
                   selectedCanvObj.copyWith(height: newValue),
                 );
       }
@@ -184,7 +184,7 @@ class _ObjectEditorState extends ConsumerState<ObjectEditor> {
 
     if (newValue != null && selectedCanvObj != null) {
       if (value.isNotEmpty && value != '') {
-        ref.read(objectsControllerProvider.notifier).updateObj(
+        ref.read(objectsControllerProvider.notifier).editObj(
               selectedCanvObj.copyWith(
                   position: isDx
                       ? [newValue, selectedCanvObj.position.last]
@@ -200,7 +200,7 @@ class _ObjectEditorState extends ConsumerState<ObjectEditor> {
     if (selectedCanvObj != null) {
       ref
           .read(objectsControllerProvider.notifier)
-          .updateObj(selectedCanvObj.copyWith(borderColor: color.value));
+          .editObj(selectedCanvObj.copyWith(borderColor: color.value));
     }
   }
 
@@ -210,7 +210,7 @@ class _ObjectEditorState extends ConsumerState<ObjectEditor> {
     if (selectedCanvObj != null) {
       ref
           .read(objectsControllerProvider.notifier)
-          .updateObj(selectedCanvObj.copyWith(fillColor: color.value));
+          .editObj(selectedCanvObj.copyWith(fillColor: color.value));
     }
   }
 }
