@@ -35,7 +35,7 @@ class StoreFirestoreService {
           .doc(store.id)
           .set(store.toFirestore(), SetOptions(merge: true));
     } catch (e) {
-      print('Error: $e');
+      // print('Error: $e');
       rethrow;
     }
   }
@@ -60,7 +60,7 @@ class StoreFirestoreService {
         'name': name,
       }, SetOptions(merge: true));
     } catch (e) {
-      print('Error: $e');
+      // print('Error: $e');
       rethrow;
     }
   }
@@ -72,7 +72,7 @@ class StoreFirestoreService {
           .doc(id)
           .delete();
     } catch (e) {
-      print('Error: $e');
+      // print('Error: $e');
       rethrow;
     }
   }

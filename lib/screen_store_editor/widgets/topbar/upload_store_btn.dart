@@ -9,7 +9,6 @@ import 'package:shopifind/screen_store_editor/services/store_service.dart';
 import 'package:shopifind/screen_store_editor/utils/utils.dart';
 import 'package:shopifind/service/analytics/events/actions_events.dart';
 import 'package:shopifind/service/analytics/models/event.dart';
-import 'package:shopifind/service/analytics/providers/analytics_provider.dart';
 
 class SaveStoreBtn extends ConsumerWidget {
   const SaveStoreBtn({Key? key}) : super(key: key);
@@ -46,7 +45,7 @@ class SaveStoreBtn extends ConsumerWidget {
           context: context,
         );
       } catch (e) {
-        print('Error saving store: $e');
+        // print('Error saving store: $e');
         Utils.showSnackbarMessage(
           isError: true,
           message: 'Error saving store. Please try again later',

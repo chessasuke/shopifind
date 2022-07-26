@@ -12,7 +12,6 @@ import 'package:shopifind/screen_store_editor/services/store_service.dart';
 import 'package:shopifind/screen_store_editor/utils/utils.dart';
 import 'package:shopifind/service/analytics/events/actions_events.dart';
 import 'package:shopifind/service/analytics/models/event.dart';
-import 'package:shopifind/service/analytics/providers/analytics_provider.dart';
 
 final storeNameProvider = StateProvider((ref) => '');
 
@@ -56,7 +55,6 @@ class _ManageStoreDialog extends ConsumerWidget {
         height: 300,
         width: 400,
         color: AppColors.neutral200,
-        // constraints: const BoxConstraints(maxHeight: 200, maxWidth: 300),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -107,7 +105,8 @@ class _ManageStoreDialog extends ConsumerWidget {
   }
 
   void _onSave(BuildContext context, WidgetRef ref) async {
-    Utils.trackEvent(event: Event(name: ActionsEvents.renameStore.name), ref: ref);
+    Utils.trackEvent(
+        event: Event(name: ActionsEvents.renameStore.name), ref: ref);
 
     String newName = ref.read(storeNameProvider);
     if (newName.isEmpty) newName = 'Store Name';
@@ -134,7 +133,7 @@ class _ManageStoreDialog extends ConsumerWidget {
         isError: false,
       );
     } catch (e) {
-      print('Error: $e');
+      // print('Error: $e');
       Utils.showSnackbarMessage(
         message: 'Error updating store name. Please, try again later.',
         context: context,
@@ -144,17 +143,10 @@ class _ManageStoreDialog extends ConsumerWidget {
   }
 
   void _onDelete(BuildContext context, WidgetRef ref) async {
-        Utils.trackEvent(event: Event(name: ActionsEvents.deleteStore.name), ref: ref);
-
-    // if (currentStore.isSaved == false) {
-    //   Utils.showSnackbarMessage(
-    //     message: "Store is not saved.",
-    //     context: context,
-    //     isError: false,
-    //   );
-    //   return;
-    // }
+    Utils.trackEvent(
+        event: Event(name: ActionsEvents.deleteStore.name), ref: ref);
     try {
+      final navigator = Navigator.of(context);
       await ref.read(storeServiceProvider).deleteStore(currentStore.id!);
       ref.read(storesControllerProvider.notifier).removeStore(currentStore.id!);
       Utils.showSnackbarMessage(
@@ -162,14 +154,13 @@ class _ManageStoreDialog extends ConsumerWidget {
         context: context,
         isError: false,
       );
-      Navigator.pushReplacement(
-        context,
+      navigator.pushReplacement(
         MaterialPageRoute(
           builder: (context) => const LandingScreen(),
         ),
       );
     } catch (e) {
-      print('Error: $e');
+      // print('Error: $e');
       Utils.showSnackbarMessage(
         message: 'Error deleting store. Please, try again later.',
         context: context,

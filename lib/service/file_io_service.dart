@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:file_picker/file_picker.dart';
 import 'package:universal_platform/universal_platform.dart';
 
-class AppService {
+class FileIoService {
   static Future<String?>? pickFileDesktop() async {
     FilePickerResult? result = await FilePicker.platform
         .pickFiles(allowedExtensions: ['csv'], type: FileType.custom);
@@ -18,7 +18,7 @@ class AppService {
               contents = await file.readAsString();
               return contents;
             } catch (e) {
-              print("error in service_pickFile: $e");
+              // print("error in service_pickFile: $e");
             }
           }
         }
@@ -29,7 +29,7 @@ class AppService {
         }
       }
     } else {
-      print('user didnt pick a file');
+      // print('user didnt pick a file');
     }
     return contents;
   }

@@ -5,7 +5,7 @@ import 'package:shopifind/screen_store_editor/model/product.dart';
 import 'package:shopifind/screen_store_editor/utils/utils.dart';
 import 'package:shopifind/service/analytics/events/actions_events.dart';
 import 'package:shopifind/service/analytics/models/event.dart';
-import 'package:shopifind/service/service.dart';
+import 'package:shopifind/service/file_io_service.dart';
 import 'package:flutter/material.dart';
 
 class UploadProdcutsBtn extends ConsumerWidget {
@@ -64,7 +64,7 @@ class UploadProdcutsBtn extends ConsumerWidget {
     Utils.trackEvent(
         event: Event(name: ActionsEvents.addProducts.name), ref: ref);
 
-    final rawContent = await AppService.pickFileDesktop();
+    final rawContent = await FileIoService.pickFileDesktop();
     if (rawContent != null) {
       await processContent(
         rawContent: rawContent,

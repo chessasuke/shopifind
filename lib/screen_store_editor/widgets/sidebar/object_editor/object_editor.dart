@@ -2,7 +2,6 @@ import 'package:shopifind/common/constants/display_properties.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shopifind/screen_store_editor/controller/objects_controller.dart';
-import 'package:shopifind/screen_store_editor/controller/store_controller.dart';
 import 'package:shopifind/screen_store_editor/model/canv_obj.dart';
 import 'package:shopifind/screen_store_editor/model/canvas_object_type.dart';
 import 'package:shopifind/screen_store_editor/widgets/sidebar/object_editor/object_editor_border_radius.dart';
