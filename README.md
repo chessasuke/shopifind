@@ -2,7 +2,7 @@
 
 A simple project to manage stores layouts and stores products. Uses riverpod + firebase
 
-Demo url: https://team3proj-e0463.web.app
+Demo url: https://shopifind.carlosalejano.app/
 
 Upload products in CSV format (id, name, price) or use this test data file
 
